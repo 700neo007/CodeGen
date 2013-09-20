@@ -45,11 +45,4 @@
 		<property name="password" value="${master.jdbc.password}" />
 	</bean>
 	
-	<!-- JDBC 据源事务管理   -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="masterDataSource" />
-	</bean>
-	<tx:annotation-driven transaction-manager="transactionManager" />
-	
 </beans>

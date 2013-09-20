@@ -7,10 +7,10 @@
 		<artifactId>CodeGen</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>CodeGen-web</artifactId>
+	<artifactId>CodeGen-model</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
-	<name>CodeGen-web</name>
+	<name>CodeGen-model</name>
+	
 	<build>
 		<resources>
 			<resource>
@@ -26,23 +26,5 @@
 			</resource>
 		</resources>
 	</build>
-	
-	<dependencies>
-		<dependency>
-			<groupId>com.cg</groupId>
-			<artifactId>CodeGen-biz</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cg</groupId>
-			<artifactId>CodeGen-model</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-		<dependency>
-			<groupId>com.cg</groupId>
-			<artifactId>CodeGen-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
-	</dependencies>
 	
 </project>
