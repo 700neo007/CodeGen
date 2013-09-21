@@ -8,9 +8,70 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>CodeGen-common</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
 	<name>CodeGen-common</name>
-	
+
+	<dependencies>
+
+		<!-- SPRING basic begin -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-core</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-beans</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-aop</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-tx</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- email/scheduler/freemarker -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-context-support</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- SPRING basic end -->
+
+		<!-- j2ee web spec begin -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- j2ee web spec end -->
+
+		<!-- json begin -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- json end -->
+
+		<!-- db begin -->
+		<dependency>
+			<groupId>c3p0</groupId>
+			<artifactId>c3p0</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- db end -->
+
+	</dependencies>
+
 	<build>
 		<resources>
 			<resource>
@@ -26,5 +87,5 @@
 			</resource>
 		</resources>
 	</build>
-	
+
 </project>
