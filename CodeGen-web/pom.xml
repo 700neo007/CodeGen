@@ -38,6 +38,10 @@
 			<groupId>com.cg</groupId>
 			<artifactId>CodeGen-common</artifactId>
 		</dependency>
+		<dependency>
+			<groupId>com.cg</groupId>
+			<artifactId>CodeGen-model</artifactId>
+		</dependency>
 		<!-- CodeGen end -->
 
 		<!-- SPRING basic begin -->

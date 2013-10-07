@@ -17,6 +17,11 @@
 			<artifactId>CodeGen-common</artifactId>
 			<optional>true</optional>
 		</dependency>
+		<dependency>
+			<groupId>com.cg</groupId>
+			<artifactId>CodeGen-model</artifactId>
+			<optional>true</optional>
+		</dependency>
 		<!-- CodeGen end -->
 
 		<!-- SPRING basic begin -->

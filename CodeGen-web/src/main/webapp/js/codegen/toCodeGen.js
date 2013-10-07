@@ -1,0 +1,102 @@
+
+var toCg = {};
+
+//------------------------------
+toCg.url = {};
+
+/**获取所有table url*/
+toCg.url.getTables = BasePath + "/codeGen/getTables";
+
+//------------------------------
+toCg.search = {};
+
+/**
+ * 搜索框按键事件
+ * @param {Object} event 事件对象
+ */
+toCg.search.searchTxt_OnKeyPress = function(event) {
+	event = event || window.event;
+	if(event.keyCode==13){ 
+		toCg.search.searchBtn_OnClick();
+	} 
+	return false;
+};
+
+/**
+ * 搜索按钮点击事件
+ */
+toCg.search.searchBtn_OnClick = function() {
+	var keyword = $("#toCg_search_txt").val();
+	toCg.table.getTables(keyword);
+};
+
+$(function() {
+	//搜索按钮点击事件
+	$("#toCg_search_btn").click(toCg.search.searchBtn_OnClick);
+	//搜索框按键事件
+	$("#toCg_search_txt").keypress(toCg.search.searchTxt_OnKeyPress);
+});
+
+//------------------------------
+toCg.table = {};
+
+/**
+ * 获取所有table
+ * @param {String} keyword 关键字
+ */
+toCg.table.getTables = function(keyword) {
+	util.blockui.blockWithLoadingImg("#toCg_table_list_layer");
+	$.ajax({
+		url: toCg.url.getTables,
+		type: "POST",
+		cache: false,
+		dataType: "json",
+		data: {keyword: keyword},
+		success: function(data) {
+			util.blockui.unblock("#toCg_table_list_layer");
+			if(!$.isArray(data)) {
+				return;
+			}
+			toCg.table.renderTables(data);
+		},
+		error: function() {
+			util.blockui.unblock("#toCg_table_list_layer");
+			alert("服务器异常，请联系管理员");
+		}
+	});
+};
+
+/**展现table列表 模板*/
+toCg.table.renderTableTemplate = 
+		'<% var table = null; %>' +
+		'<% var num = null; %>' +
+		'<% for (var i = 0, len = list.length; i < len; i++) { %>' +
+			'<% table = list[i]; %>' +
+			'<% num = i + 1; %>' +
+			'<tr>' +
+				'<td><%=num %></td>' +
+	 			'<td><input type="checkbox" class="toCg_table_list_check_single" /></td>' +
+	 			'<td><%=table.name %></td>' +
+	 			'<td><%=table.desc %></td>' +
+	 		'</tr>' +
+		'<% } %>';
+/**展现table列表 模板 展现器*/
+toCg.table.renderTableRender = template.compile(toCg.table.renderTableTemplate);
+
+/**
+ * 展现table列表
+ * @param {Array} tableList table列表
+ */
+toCg.table.renderTables = function(tableList) {
+	var html = toCg.table.renderTableRender({list: tableList});
+	$("#toCg_table_list tbody").html(html);
+	
+	util.checkbox.bindCheckAllEvent("toCg_table_list_check_single", "toCg_table_list_check_all");
+};
+
+//------------------------------
+
+$(function() {
+	//获取所有table
+	toCg.table.getTables();
+});

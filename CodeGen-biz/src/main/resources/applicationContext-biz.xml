@@ -48,4 +48,13 @@
 		<property name="password" value="${master.jdbc.password}" />
 	</bean>
 	
+	<!-- 
+	<bean id="confResource" class="org.springframework.context.support.ReloadableResourceBundleMessageSource" scope="singleton">
+		<property name="basenames">
+			<set>
+				<value>classpath:conf/*.properties</value>
+			</set>
+		</property>
+	</bean> -->
+	
 </beans>
