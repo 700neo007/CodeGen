@@ -18,8 +18,8 @@ toCg.search.searchTxt_OnKeyPress = function(event) {
 	event = event || window.event;
 	if(event.keyCode==13){ 
 		toCg.search.searchBtn_OnClick();
+		return false;
 	} 
-	return false;
 };
 
 /**
@@ -73,9 +73,9 @@ toCg.table.renderTableTemplate =
 		'<% for (var i = 0, len = list.length; i < len; i++) { %>' +
 			'<% table = list[i]; %>' +
 			'<% num = i + 1; %>' +
-			'<tr>' +
+			'<tr tableName="<%=table.name %>">' +
 				'<td><%=num %></td>' +
-	 			'<td><input type="checkbox" class="toCg_table_list_check_single" /></td>' +
+	 			'<td><input id="toCg_table_list_chk_<%=table.name %>" type="checkbox" class="toCg_table_list_check_single" value="<%=table.name %>" /></td>' +
 	 			'<td><%=table.name %></td>' +
 	 			'<td><%=table.desc %></td>' +
 	 		'</tr>' +
@@ -90,8 +90,24 @@ toCg.table.renderTableRender = template.compile(toCg.table.renderTableTemplate);
 toCg.table.renderTables = function(tableList) {
 	var html = toCg.table.renderTableRender({list: tableList});
 	$("#toCg_table_list tbody").html(html);
-	
+	//绑定通用全选事件
 	util.checkbox.bindCheckAllEvent("toCg_table_list_check_single", "toCg_table_list_check_all");
+	//绑定行点击事件
+	toCg.table.bindTableLineClick();
+};
+
+/**
+ * 绑定行点击事件
+ */
+toCg.table.bindTableLineClick = function() {
+	$("#toCg_table_list tr").click(function(event) {
+		var target = event.target;
+		if($(target).is("input[type='checkbox']")) {
+			return;
+		}
+		var tableName = $(this).attr("tableName");
+		$("#toCg_table_list_chk_" + tableName).click();
+	});
 };
 
 //------------------------------

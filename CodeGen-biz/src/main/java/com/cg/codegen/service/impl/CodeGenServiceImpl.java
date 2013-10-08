@@ -2,6 +2,7 @@ package com.cg.codegen.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -55,6 +56,15 @@ public class CodeGenServiceImpl extends BaseService implements CodeGenService {
 		}
 		tableList.clear();
 		return finalTableList;
+	}
+	
+	/**
+	 * 
+	 * @param tableName
+	 * @param extParam
+	 */
+	public void generateModels(String tableName, Map<String, Object> extParam) {
+		
 	}
 	
 }

@@ -14,6 +14,7 @@ public abstract class BaseTestCase {
 	@BeforeClass
 	public static void beforeClass() {
 		System.setProperty("BasePath", "/codegen");
+		System.setProperty("BaseRealPath", "D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\CodeGen-web\\src\\main\\webapp");
 	}
 	
 	@Before

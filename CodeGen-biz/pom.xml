@@ -76,6 +76,33 @@
 		</dependency>
 		<!-- AOP end -->
 
+		<!-- WEB begin -->
+		<!-- spring mvc -->
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-web</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-webmvc</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- WEB end -->
+
+		<!-- j2ee web spec begin -->
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>servlet-api</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>javax.servlet</groupId>
+			<artifactId>jstl</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<!-- j2ee web spec end -->
+
 		<!-- json begin -->
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
@@ -129,10 +156,12 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework</groupId>
 			<artifactId>spring-test</artifactId>
+			<optional>true</optional>
 		</dependency>
 		<!-- Test end -->
 

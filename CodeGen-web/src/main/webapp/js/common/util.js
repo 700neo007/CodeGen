@@ -45,7 +45,7 @@ util.string.format = function(source, opts) {
 //------------------------------
 util.blockui = {};
 
-$.blockUI.defaults.overlayCSS.backgroundColor = '#666';
+$.blockUI.defaults.overlayCSS.backgroundColor = '#AAA';
 $.blockUI.defaults.overlayCSS.opacity = 0.1;
 
 /**loading图片*/
@@ -84,9 +84,9 @@ util.checkbox.bindCheckAllEvent = function(checkBoxClass, checkAllBoxId) {
 	$("#" + checkAllBoxId).click(function() {
 		//console.log("all click");
 		if(this.checked) {
-			$("." + checkBoxClass).attr("checked", true);
+			util.checkbox.checkOpt("." + checkBoxClass, true);
 		} else {
-			$("." + checkBoxClass).removeAttr("checked");
+			util.checkbox.checkOpt("." + checkBoxClass, false);
 		}
 	});
 	//单个checkbox
@@ -96,14 +96,29 @@ util.checkbox.bindCheckAllEvent = function(checkBoxClass, checkAllBoxId) {
 		var checkedCount = $("." + checkBoxClass + ":checked").length;
 		if(this.checked) {
 			if(checkBoxCount == checkedCount) {
-				$("#" + checkAllBoxId).attr("checked", true);
+				util.checkbox.checkOpt("#" + checkAllBoxId, true);
 			}
 		} else {
 			if (checkBoxCount != checkedCount) {
-				$("#" + checkAllBoxId).removeAttr("checked");
+				util.checkbox.checkOpt("#" + checkAllBoxId, false);
 			}
 		}
 	});
 };
+
+/**
+ * 选中/取消 checkbox
+ * @param {String} selector 选择器
+ * @param {Boolean} isCheck true为选中
+ */
+util.checkbox.checkOpt = function(selector, isCheck) {
+	var $checkboxes = $(selector);
+	var chb = null;
+	for (var i = 0, len = $checkboxes.length; i < len; i++) {
+		chb = $checkboxes[i];
+		chb.checked = isCheck;
+	}
+};
+
 
 //------------------------------
