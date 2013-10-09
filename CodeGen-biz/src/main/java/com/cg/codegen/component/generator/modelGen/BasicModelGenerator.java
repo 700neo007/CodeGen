@@ -1,12 +1,21 @@
 package com.cg.codegen.component.generator.modelGen;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
+import org.apache.commons.io.FileUtils;
 
+import com.cg.codegen.component.generator.GeneratorUtil;
+import com.cg.codegen.component.generator.nameStrategy.column2Prop.Column2PropStrategy;
+import com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy;
+import com.cg.codegen.component.generator.nameStrategy.table2Model.Table2ModelStrategy;
+import com.cg.codegen.component.generator.nameStrategy.table2Model.TblUnderlineTable2ModelStrategy;
+import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
 import com.cg.codegen.model.vo.Table;
 import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
 import com.cg.codegen.model.vo.generator.modelGen.BasicModelGeneratorVo;
@@ -53,16 +62,43 @@ public class BasicModelGenerator extends ModelGenerator {
 		for (Table table : tableList) {
 			generateInfo = new FreeMarkerUtil.GenerateInfo();
 			
+			//表名->实体名命名策略
+			Table2ModelStrategy table2ModelStrategy = TblUnderlineTable2ModelStrategy.getInstance();
+			//DB字段->实体属性命名策略
+			Column2PropStrategy column2PropStrategy = UnderlineColumn2PropStrategy.getInstance();
+			
 			//数据模型
 			modelMap = new HashMap<String, Object>();
 			modelMap.put(MODEL_MAP_KEY_TABLE, table);
 			modelMap.put(MODEL_MAP_KEY_PACKAGE, modelGeneratorVo.getModelPackage());
+			//MySQL类型、JAVA类型映射，Map
+			modelMap.put(MODEL_MAP_KEY_SQL_TYPE_JAVA_TYPE_MAP, MySqlTypeHandler.SQL_TYPE_JAVA_TYPE_MAP);
+			//表名->实体名命名策略
+			modelMap.put(MODEL_MAP_KEY_TABLE_2_MODEL_NAME_STRATEGY, table2ModelStrategy);
+			//DB字段->实体属性命名策略
+			modelMap.put(MODEL_MAP_KEY_COLUMN_2_PROP_NAME_STRATEGY, column2PropStrategy);
+			//generatorUtil
+			modelMap.put(MODEL_MAP_KEY_GENERATOR_UTIL, GeneratorUtil.getInstance());
+			//获取import列表
+			modelMap.put(MODEL_MAP_KEY_IMPORT_LIST, getImportList(table, MySqlTypeHandler.SQL_TYPE_JAVA_TYPE_MAP));
+			//version id
+			modelMap.put(MODEL_MAP_KEY_VERSION_ID, getModelVersionId());
+			
 			
 			generateInfo.setModelMap(modelMap);
 			generateInfo.setFtlRoot(modelGeneratorVo.getFtlRoot());
 			generateInfo.setFtlFile(modelGeneratorVo.getFtlFile());
-			generateInfo.setTargetRoot(modelGeneratorVo.getTargetRoot());
-			generateInfo.setTargetFile(table.getName() + ".java");
+			
+			String targetRoot = modelGeneratorVo.getTargetRoot() + File.separator +
+					GeneratorUtil.getPathByPackage(modelGeneratorVo.getModelPackage());
+			generateInfo.setTargetRoot(targetRoot);
+			try {
+				FileUtils.forceMkdir(new File(targetRoot));
+			} catch (IOException e) {
+				logger.error(e.getMessage(), e);
+			}
+			
+			generateInfo.setTargetFile(table2ModelStrategy.getModelName(table.getName()) + ".java");
 			
 			generateInfoList.add(generateInfo);
 		}

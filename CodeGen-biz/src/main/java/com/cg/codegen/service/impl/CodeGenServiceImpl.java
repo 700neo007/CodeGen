@@ -132,7 +132,7 @@ public class CodeGenServiceImpl extends BaseService implements CodeGenService {
 	 * @param submitVo
 	 */
 	public void generate(GeneratorSubmitVo submitVo) throws Exception {
-		String prefix = "generate#-> ";
+//		String prefix = "generate#-> ";
 		
 		String[] tableNames = submitVo.getTableCheckboxes();
 		//通过表名批量获取表格

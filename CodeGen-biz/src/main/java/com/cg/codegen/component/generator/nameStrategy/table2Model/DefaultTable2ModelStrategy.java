@@ -7,6 +7,14 @@ package com.cg.codegen.component.generator.nameStrategy.table2Model;
  */
 public class DefaultTable2ModelStrategy extends Table2ModelStrategy {
 
+	private static DefaultTable2ModelStrategy _strategy = new DefaultTable2ModelStrategy();
+	
+	private DefaultTable2ModelStrategy() {}
+	
+	public static DefaultTable2ModelStrategy getInstance() {
+		return _strategy;
+	}
+	
 	/**
 	 * 获取实体名
 	 * @param tableName 表名

@@ -31,6 +31,8 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 		submitVo.setFtlFile("BasicModel.ftl");
 		submitVo.setTargetRoot("D:\\DeskTmp\\FreemarkerTest\\src");
 		
+		System.out.println("@@--submitVo:" + JsonUtil.toJson(submitVo));
+		
 		List<String> tableNameList = new ArrayList<String>();
 		tableNameList.add("tbl_dms_commodity_style");
 //		tableNameList.add("tbl_dms_commodity_product");

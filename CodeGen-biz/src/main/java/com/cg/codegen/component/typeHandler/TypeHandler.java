@@ -1,12 +1,54 @@
 package com.cg.codegen.component.typeHandler;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 类型处理器
  * @author Neo
  *
  */
 public abstract class TypeHandler {
-
+	
+	// ----------JAVA类型
+	public static final String JAVA_TYPE_STRING = "String";
+	
+	public static final String JAVA_TYPE_UTILDATE = "Date";
+	
+	public static final String JAVA_TYPE_SQLDATE = "Date";
+	
+	public static final String JAVA_TYPE_TIME = "Time";
+	
+	public static final String JAVA_TYPE_TIMESTAMP = "Timestamp";
+	
+	public static final String JAVA_TYPE_SHORT = "Short";
+	
+	public static final String JAVA_TYPE_BIGDECIMAL = "BigDecimal";
+	
+	public static final String JAVA_TYPE_DOUBLE = "Double";
+	
+	public static final String JAVA_TYPE_INTEGER = "Integer";
+	
+	public static final String JAVA_TYPE_LONG = "Long";
+	//--------------------------------
+	/**
+	 * java类型、包名map
+	 */
+	public static final Map<String, String> JAVA_TYPE_PACKAGE_MAP = new HashMap<String, String>();
+	static {
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_STRING, "");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_UTILDATE, "java.util.Date");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_SQLDATE, "java.sql.Date");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_TIME, "java.sql.Time");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_TIMESTAMP, "java.sql.Timestamp");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_SHORT, "");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_BIGDECIMAL, "java.math.BigDecimal");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_DOUBLE, "");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_INTEGER, "");
+		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_LONG, "");
+	}
+	//--------------------------------
+	
 	/**
 	 * 类型信息
 	 * @author Neo

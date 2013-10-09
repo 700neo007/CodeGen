@@ -22,8 +22,6 @@ public class ModelGeneratorFactory {
 			List<Table> tableList, GeneratorSubmitVo submitVo) {
 		ModelGenerator modelGenerator = new BasicModelGenerator(
 				tableList, submitVo);
-		modelGenerator.setTableList(tableList);
-		modelGenerator.setSubmitVo(submitVo);
 		return modelGenerator;
 	}
 	
