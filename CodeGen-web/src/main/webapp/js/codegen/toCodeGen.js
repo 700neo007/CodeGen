@@ -6,6 +6,8 @@ toCg.url = {};
 
 /**获取所有table url*/
 toCg.url.getTables = BasePath + "/codeGen/getTables";
+/**提交生成文件url*/
+toCg.url.submitGenerator = BasePath + "/codeGen/generate";
 
 //------------------------------
 toCg.search = {};
@@ -75,7 +77,7 @@ toCg.table.renderTableTemplate =
 			'<% num = i + 1; %>' +
 			'<tr tableName="<%=table.name %>">' +
 				'<td><%=num %></td>' +
-	 			'<td><input id="toCg_table_list_chk_<%=table.name %>" type="checkbox" class="toCg_table_list_check_single" value="<%=table.name %>" /></td>' +
+	 			'<td><input id="toCg_table_list_chk_<%=table.name %>" type="checkbox" name="tableCheckboxes" class="toCg_table_list_check_single" value="<%=table.name %>" /></td>' +
 	 			'<td><%=table.name %></td>' +
 	 			'<td><%=table.desc %></td>' +
 	 		'</tr>' +
@@ -109,6 +111,34 @@ toCg.table.bindTableLineClick = function() {
 		$("#toCg_table_list_chk_" + tableName).click();
 	});
 };
+
+//------------------------------
+toCg.generate = {};
+
+/**
+ * 提交生成文件
+ */
+toCg.generate.submitGenerator = function() {
+	util.blockui.blockWithLoadingImg("body");
+	var $generateForm = $("#toCg_generate_form");
+	$generateForm.attr("action", toCg.url.submitGenerator);
+	$generateForm.ajaxSubmit({
+		cache: false,
+		dataType: "html",
+		success: function(data) {
+			util.blockui.unblock("body");
+			alert(data);
+		},
+		error: function() {
+			alert("服务器异常，请联系管理员");
+		}
+	});
+};
+
+$(function() {
+	//提交生成文件
+	$("#toCg_submit_btn").click(toCg.generate.submitGenerator);
+});
 
 //------------------------------
 

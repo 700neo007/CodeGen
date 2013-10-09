@@ -28,27 +28,49 @@ public class FreeMarkerUtil {
 	 */
 	public static void generateFile(GenerateInfo generateInfo) {
 		String prefix = "generateFile#-> ";
-		Writer out = null;
+		FileOutputStream fileOutputStream = null;
+		OutputStreamWriter outputStreamWriter = null;
+		Writer writer = null;
 		try {
 			FreeMarkerConfigurer configurer = SpringContextUtil.getBean("templateConfig");
 			Configuration cfg = configurer.getConfiguration();
-			cfg.setDirectoryForTemplateLoading(new File(generateInfo.getPathInfo().getFtlRoot()));
-			Template template = cfg.getTemplate(generateInfo.getPathInfo().getFtlFile());
-			out = new BufferedWriter(new OutputStreamWriter(
-					new FileOutputStream(generateInfo.getPathInfo().getTargetRoot() + File.separator + generateInfo.getPathInfo().getTargetFile()), CommonConstant.ENCODING), 4000);
-			template.process(generateInfo.getModelMap(), out);
+			cfg.setDirectoryForTemplateLoading(new File(generateInfo.getFtlRoot()));
+			Template template = cfg.getTemplate(generateInfo.getFtlFile());
+			
+			fileOutputStream = new FileOutputStream(generateInfo.getTargetRoot() + File.separator + generateInfo.getTargetFile());
+			outputStreamWriter = new OutputStreamWriter(
+					fileOutputStream, CommonConstant.ENCODING);
+			writer = new BufferedWriter(outputStreamWriter);
+			template.process(generateInfo.getModelMap(), writer);
 			logger.info("{}generate success-> ftlRoot:{}, ftlFile:{}, targetRoot:{}, targetFile:{}", 
-					prefix, generateInfo.getPathInfo().getFtlRoot(), generateInfo.getPathInfo().getFtlFile(),
-					generateInfo.getPathInfo().getTargetRoot(), generateInfo.getPathInfo().getTargetFile());
+					prefix, generateInfo.getFtlRoot(), generateInfo.getFtlFile(),
+					generateInfo.getTargetRoot(), generateInfo.getTargetFile());
 			logger.info("{}generate success-> modelMap:{}", prefix, JsonUtil.toJson(generateInfo.getModelMap()));
 			logger.info("{}---------------------------------", prefix);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		} finally {
-			if (out != null) {
+			if (writer != null) {
 				try {
-					out.flush();
-					out.close();
+					writer.flush();
+					writer.close();
+				} catch (IOException e) {
+					logger.error(e.getMessage(), e);
+				}
+			}
+//			if (outputStreamWriter != null) {
+//				try {
+//					outputStreamWriter.flush();
+//					outputStreamWriter.close();
+//				} catch (IOException e) {
+//					logger.error(e.getMessage(), e);
+//				}
+//			}
+			
+			if (fileOutputStream != null) {
+				try {
+					fileOutputStream.flush();
+					fileOutputStream.close();
 				} catch (IOException e) {
 					logger.error(e.getMessage(), e);
 				}
@@ -78,36 +100,6 @@ public class FreeMarkerUtil {
 		 */
 		private Map<String, Object> modelMap; 
 		/**
-		 * 路径信息
-		 */
-		private GeneratePathInfo pathInfo = new GeneratePathInfo();
-
-		public Map<String, Object> getModelMap() {
-			return modelMap;
-		}
-
-		public void setModelMap(Map<String, Object> modelMap) {
-			this.modelMap = modelMap;
-		}
-
-		public GeneratePathInfo getPathInfo() {
-			return pathInfo;
-		}
-
-		public void setPathInfo(GeneratePathInfo pathInfo) {
-			this.pathInfo = pathInfo;
-		}
-		
-	}
-	
-	/**
-	 * 生成文件路径信息
-	 * @author Neo
-	 *
-	 */
-	public static class GeneratePathInfo {
-		
-		/**
 		 * 模板基路径
 		 */
 		private String ftlRoot; 
@@ -123,7 +115,14 @@ public class FreeMarkerUtil {
 		 * 生成的文件路径
 		 */
 		private String targetFile;
-		
+
+		public Map<String, Object> getModelMap() {
+			return modelMap;
+		}
+
+		public void setModelMap(Map<String, Object> modelMap) {
+			this.modelMap = modelMap;
+		}
 		public String getFtlRoot() {
 			return ftlRoot;
 		}

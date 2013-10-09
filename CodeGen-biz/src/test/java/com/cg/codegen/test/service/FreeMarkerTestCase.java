@@ -22,10 +22,10 @@ public class FreeMarkerTestCase extends BaseTestCase {
 		
 		GenerateInfo generateInfo = new GenerateInfo();
 		generateInfo.setModelMap(map);
-		generateInfo.getPathInfo().setFtlRoot(ftlRoot);
-		generateInfo.getPathInfo().setFtlFile(ftlFile);
-		generateInfo.getPathInfo().setTargetRoot(targetRoot);
-		generateInfo.getPathInfo().setTargetFile(targetFile);
+		generateInfo.setFtlRoot(ftlRoot);
+		generateInfo.setFtlFile(ftlFile);
+		generateInfo.setTargetRoot(targetRoot);
+		generateInfo.setTargetFile(targetFile);
 		FreeMarkerUtil.generateFile(generateInfo);
 		
 	}

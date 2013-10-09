@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cg.codegen.model.vo.Table;
+import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
 import com.cg.codegen.service.CodeGenService;
+import com.cg.common.util.CommonUtil;
 import com.cg.common.util.JsonUtil;
 import com.cg.common.web.controller.BaseController;
 
@@ -53,5 +55,29 @@ public class CodeGenController extends BaseController {
 		return result;
 	}
 	
+	/**
+	 * 生成文件
+	 * @param submitVo
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("generate")
+	public String generate(GeneratorSubmitVo submitVo) {
+		String prefix = "generate#-> ";
+		logger.info("{}submitVo:{}", prefix, JsonUtil.toJson(submitVo));
+		
+		submitVo.setModelPackage(StringUtils.trimToEmpty(submitVo.getModelPackage()));
+		submitVo.setModelFtlBasePath(StringUtils.trimToEmpty(submitVo.getModelFtlBasePath()));
+		submitVo.setModelFtlPath(StringUtils.trimToEmpty(submitVo.getModelFtlPath()));
+		submitVo.setTargetBasePath(StringUtils.trimToEmpty(submitVo.getTargetBasePath()));
+		
+		try {
+			codeGenService.generate(submitVo);
+		} catch (Exception e) {
+			return CommonUtil.getStackTrace(e);
+		}
+		
+		return "success";
+	}
 	
 }

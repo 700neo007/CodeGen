@@ -2,7 +2,6 @@ package com.cg.codegen.service.impl;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -10,9 +9,13 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.cg.codegen.component.generator.modelGen.ModelGenerator;
+import com.cg.codegen.component.generator.modelGen.ModelGeneratorFactory;
 import com.cg.codegen.dao.CodeGenDao;
 import com.cg.codegen.dao.DBMetaDataDao;
+import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
+import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.common.service.BaseService;
 
@@ -59,12 +62,83 @@ public class CodeGenServiceImpl extends BaseService implements CodeGenService {
 	}
 	
 	/**
-	 * 
+	 * 通过表名获取表
 	 * @param tableName
-	 * @param extParam
+	 * @return
 	 */
-	public void generateModels(String tableName, Map<String, Object> extParam) {
+	public Table getTableByTableName(String tableName) {
+		if (StringUtils.isEmpty(tableName)) {
+			return null;
+		}
+		//最终返回的table
+		Table finalTable = null;
 		
+		//获取所有表
+		List<Table> tableList = dbMetaDataDao.getTables();
+		String tableNameTmp = null;
+		for (Table table : tableList) {
+			tableNameTmp = table.getName();
+			if (tableNameTmp.equals(tableName)) {
+				finalTable = table;
+				break;
+			}
+		}
+		if (finalTable == null) {
+			return null;
+		}
+		
+		//通过表名获取列
+		List<Column> columnList = dbMetaDataDao.getColumnsByTableName(tableName);
+		finalTable.setColumnList(columnList);
+		
+		return finalTable;
+	}
+	
+	/**
+	 * 通过表名批量获取表格
+	 * @param tableNames 表名数组
+	 * @return
+	 */
+	public List<Table> getTablesByTableNames(String[] tableNames) {
+		List<Table> tableList = new ArrayList<Table>();
+		
+		Table tableTmp = null;
+		for (String tableName : tableNames) {
+			//通过表名获取表
+			tableTmp = getTableByTableName(tableName);
+			if (tableTmp != null) {
+				tableList.add(tableTmp);
+			}
+		}
+		return tableList;
+	}
+	
+	/**
+	 * 生成实体
+	 * @param tableList 表格list
+	 * @param submitVo 
+	 * @throws Exception
+	 */
+	public void generateModel(List<Table> tableList, 
+			GeneratorSubmitVo submitVo) throws Exception {
+		//创建实体生成器
+		ModelGenerator modelGenerator = ModelGeneratorFactory.createModelGenerator(tableList, submitVo);
+		//生成实体
+		modelGenerator.generateModel();
+	}
+	
+	/**
+	 * 生成文件
+	 * @param submitVo
+	 */
+	public void generate(GeneratorSubmitVo submitVo) throws Exception {
+		String prefix = "generate#-> ";
+		
+		String[] tableNames = submitVo.getTableCheckboxes();
+		//通过表名批量获取表格
+		List<Table> tableList = getTablesByTableNames(tableNames);
+		//生成实体
+		generateModel(tableList, submitVo);
 	}
 	
 }
