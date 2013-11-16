@@ -49,7 +49,7 @@ public class MySqlTypeHandler extends TypeHandler {
 
 	public static final Pattern PATTERN_DECIMAL = Pattern.compile("decimal\\(\\d+,\\d+\\)");
 
-	public static final Pattern PATTERN_DOUBLE = Pattern.compile("double");
+	public static final Pattern PATTERN_DOUBLE = Pattern.compile("double\\(\\d+,\\d+\\)");
 
 	public static final Pattern PATTERN_INT = Pattern.compile("int\\(\\d+\\)");
 	

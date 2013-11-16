@@ -1,9 +1,12 @@
 package com.cg.codegen.component.generator.modelGen;
 
-import java.util.List;
+import java.lang.reflect.Constructor;
 
-import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.util.Assert;
+
+import com.cg.codegen.model.vo.generator.GeneratorVo;
 
 /**
  * 实体生成器工厂
@@ -12,16 +15,26 @@ import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
  */
 public class ModelGeneratorFactory {
 
+	private static final Logger logger = LoggerFactory.getLogger(ModelGeneratorFactory.class);
+	
 	/**
 	 * 创建实体生成器
-	 * @param tableList table列表
-	 * @param submitVo 生成文件提交vo
+	 * @param generatorVo 
 	 * @return
 	 */
-	public static ModelGenerator createModelGenerator(
-			List<Table> tableList, GeneratorSubmitVo submitVo) {
-		ModelGenerator modelGenerator = new BasicModelGenerator(
-				tableList, submitVo);
+	public static ModelGenerator createModelGenerator(GeneratorVo generatorVo) {
+		ModelGenerator modelGenerator = null;
+		try {
+			@SuppressWarnings("unchecked")
+			Class<? extends ModelGenerator> modelGeneratorClz = (Class<? extends ModelGenerator>) 
+					Class.forName(generatorVo.getModelGeneratorClassName());
+			Constructor<? extends ModelGenerator> modelGeneratorConstructor = 
+					modelGeneratorClz.getConstructor(GeneratorVo.class);
+			modelGenerator = modelGeneratorConstructor.newInstance(generatorVo);
+		} catch (Exception e) {
+			logger.error(e.getMessage(), e);
+		}
+		Assert.notNull(modelGenerator, "modelGenerator is null");
 		return modelGenerator;
 	}
 	

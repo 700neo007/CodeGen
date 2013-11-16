@@ -12,12 +12,12 @@ import org.apache.commons.io.FileUtils;
 
 import com.cg.codegen.component.generator.GeneratorUtil;
 import com.cg.codegen.component.generator.nameStrategy.column2Prop.Column2PropStrategy;
-import com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy;
+import com.cg.codegen.component.generator.nameStrategy.column2Prop.Column2PropStrategyFactory;
 import com.cg.codegen.component.generator.nameStrategy.table2Model.Table2ModelStrategy;
-import com.cg.codegen.component.generator.nameStrategy.table2Model.TblUnderlineTable2ModelStrategy;
+import com.cg.codegen.component.generator.nameStrategy.table2Model.Table2ModelStrategyFactory;
 import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
+import com.cg.codegen.model.vo.generator.GeneratorVo;
 import com.cg.codegen.model.vo.generator.modelGen.BasicModelGeneratorVo;
 import com.cg.common.util.FreeMarkerUtil;
 
@@ -31,16 +31,13 @@ public class BasicModelGenerator extends ModelGenerator {
 
 	/**
 	 * 
-	 * @param tableList table列表
-	 * @param submitVo 生成文件提交vo
+	 * @param generatorVo 
 	 */
-	public BasicModelGenerator(List<Table> tableList, 
-			GeneratorSubmitVo submitVo) {
-		setTableList(tableList);
-		setSubmitVo(submitVo);
+	public BasicModelGenerator(GeneratorVo generatorVo) {
+		setTableList(generatorVo.getTableList());
 		BasicModelGeneratorVo basicModelGeneratorVo = new BasicModelGeneratorVo();
 		try {
-			PropertyUtils.copyProperties(basicModelGeneratorVo, submitVo);
+			PropertyUtils.copyProperties(basicModelGeneratorVo, generatorVo);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -63,9 +60,9 @@ public class BasicModelGenerator extends ModelGenerator {
 			generateInfo = new FreeMarkerUtil.GenerateInfo();
 			
 			//表名->实体名命名策略
-			Table2ModelStrategy table2ModelStrategy = TblUnderlineTable2ModelStrategy.getInstance();
+			Table2ModelStrategy table2ModelStrategy = Table2ModelStrategyFactory.createTable2ModelStrategy(modelGeneratorVo.getTable2ModelStrategyClassName());
 			//DB字段->实体属性命名策略
-			Column2PropStrategy column2PropStrategy = UnderlineColumn2PropStrategy.getInstance();
+			Column2PropStrategy column2PropStrategy = Column2PropStrategyFactory.createColumn2PropStrategy(modelGeneratorVo.getColumn2PropStrategyClassName());
 			
 			//数据模型
 			modelMap = new HashMap<String, Object>();
@@ -86,10 +83,10 @@ public class BasicModelGenerator extends ModelGenerator {
 			
 			
 			generateInfo.setModelMap(modelMap);
-			generateInfo.setFtlRoot(modelGeneratorVo.getFtlRoot());
-			generateInfo.setFtlFile(modelGeneratorVo.getFtlFile());
+			generateInfo.setFtlRoot(modelGeneratorVo.getModelFtlRoot());
+			generateInfo.setFtlFile(modelGeneratorVo.getModelFtlFile());
 			
-			String targetRoot = modelGeneratorVo.getTargetRoot() + File.separator +
+			String targetRoot = modelGeneratorVo.getModelOutputRoot() + File.separator +
 					GeneratorUtil.getPathByPackage(modelGeneratorVo.getModelPackage());
 			generateInfo.setTargetRoot(targetRoot);
 			try {

@@ -10,16 +10,14 @@ public class BasicModelGeneratorVo extends ModelGeneratorVo {
 	/**
 	 * 模板文件路径
 	 */
-	private String ftlFile;
+	private String modelFtlFile;
 
-	public String getFtlFile() {
-		return ftlFile;
+	public String getModelFtlFile() {
+		return modelFtlFile;
 	}
 
-	public void setFtlFile(String ftlFile) {
-		this.ftlFile = ftlFile;
+	public void setModelFtlFile(String modelFtlFile) {
+		this.modelFtlFile = modelFtlFile;
 	}
-	
-	
-	
+
 }

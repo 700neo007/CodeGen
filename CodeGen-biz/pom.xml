@@ -17,11 +17,6 @@
 			<artifactId>CodeGen-common</artifactId>
 			<optional>true</optional>
 		</dependency>
-		<dependency>
-			<groupId>com.cg</groupId>
-			<artifactId>CodeGen-model</artifactId>
-			<optional>true</optional>
-		</dependency>
 		<!-- CodeGen end -->
 
 		<!-- SPRING basic begin -->
@@ -178,20 +173,5 @@
 
 	</dependencies>
 
-	<build>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-			<resource>
-				<directory>src/main/java</directory>
-				<excludes>
-					<exclude>**/*.java</exclude>
-					<exclude>**/.svn/*</exclude>
-				</excludes>
-			</resource>
-		</resources>
-	</build>
 
 </project>

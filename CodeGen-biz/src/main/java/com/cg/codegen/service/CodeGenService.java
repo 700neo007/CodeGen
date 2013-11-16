@@ -3,7 +3,7 @@ package com.cg.codegen.service;
 import java.util.List;
 
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
+import com.cg.codegen.model.vo.generator.GeneratorVo;
 
 /**
  * CodeGen Service
@@ -35,17 +35,15 @@ public interface CodeGenService {
 	
 	/**
 	 * 生成实体
-	 * @param tableList 表格list
-	 * @param submitVo 
+	 * @param generatorVo 生成器vo
 	 * @throws Exception
 	 */
-	public void generateModel(List<Table> tableList, 
-			GeneratorSubmitVo submitVo) throws Exception;
+	public void generateModel(GeneratorVo generatorVo) throws Exception;
 	
 	/**
-	 * 生成文件
-	 * @param submitVo
+	 * 生成MyBatis的Mapper
+	 * @param generatorVo 生成器vo
 	 */
-	public void generate(GeneratorSubmitVo submitVo) throws Exception;
+	public void generateMyBatisMapper(GeneratorVo generatorVo) throws Exception;
 	
 }

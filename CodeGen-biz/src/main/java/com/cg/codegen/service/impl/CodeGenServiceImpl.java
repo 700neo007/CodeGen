@@ -11,11 +11,13 @@ import org.springframework.stereotype.Service;
 
 import com.cg.codegen.component.generator.modelGen.ModelGenerator;
 import com.cg.codegen.component.generator.modelGen.ModelGeneratorFactory;
+import com.cg.codegen.component.generator.mybatisMapperGen.MyBatisMapperGenerator;
+import com.cg.codegen.component.generator.mybatisMapperGen.MyBatisMapperGeneratorFactory;
 import com.cg.codegen.dao.CodeGenDao;
 import com.cg.codegen.dao.DBMetaDataDao;
 import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorSubmitVo;
+import com.cg.codegen.model.vo.generator.GeneratorVo;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.common.service.BaseService;
 
@@ -115,30 +117,25 @@ public class CodeGenServiceImpl extends BaseService implements CodeGenService {
 	
 	/**
 	 * 生成实体
-	 * @param tableList 表格list
-	 * @param submitVo 
+	 * @param generatorVo 生成器vo
 	 * @throws Exception
 	 */
-	public void generateModel(List<Table> tableList, 
-			GeneratorSubmitVo submitVo) throws Exception {
+	public void generateModel(GeneratorVo generatorVo) throws Exception {
 		//创建实体生成器
-		ModelGenerator modelGenerator = ModelGeneratorFactory.createModelGenerator(tableList, submitVo);
+		ModelGenerator modelGenerator = ModelGeneratorFactory.createModelGenerator(generatorVo);
 		//生成实体
 		modelGenerator.generateModel();
 	}
 	
 	/**
-	 * 生成文件
-	 * @param submitVo
+	 * 生成MyBatis的Mapper
+	 * @param generatorVo 生成器vo
 	 */
-	public void generate(GeneratorSubmitVo submitVo) throws Exception {
-//		String prefix = "generate#-> ";
-		
-		String[] tableNames = submitVo.getTableCheckboxes();
-		//通过表名批量获取表格
-		List<Table> tableList = getTablesByTableNames(tableNames);
-		//生成实体
-		generateModel(tableList, submitVo);
+	public void generateMyBatisMapper(GeneratorVo generatorVo) throws Exception {
+		//创建MyBatis Mapper生成器
+		MyBatisMapperGenerator myBatisMapperGenerator = MyBatisMapperGeneratorFactory.createMyBatisMapperGenerator(generatorVo);
+		//生成MyBatis Mapper
+		myBatisMapperGenerator.generateMyBatisMapper();
 	}
 	
 }

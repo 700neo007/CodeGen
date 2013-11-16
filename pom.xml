@@ -100,11 +100,6 @@
 			</dependency>
 			<dependency>
 				<groupId>com.cg</groupId>
-				<artifactId>CodeGen-model</artifactId>
-				<version>${codeGen.version}</version>
-			</dependency>
-			<dependency>
-				<groupId>com.cg</groupId>
 				<artifactId>CodeGen-common</artifactId>
 				<version>${codeGen.version}</version>
 			</dependency>
@@ -314,7 +309,6 @@
 	<modules>
 		<module>CodeGen-web</module>
 		<module>CodeGen-biz</module>
-		<module>CodeGen-model</module>
 		<module>CodeGen-common</module>
 	</modules>
 
