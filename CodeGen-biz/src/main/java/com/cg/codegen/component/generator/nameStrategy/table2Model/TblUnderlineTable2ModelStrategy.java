@@ -24,11 +24,13 @@ public class TblUnderlineTable2ModelStrategy extends Table2ModelStrategy {
 	 */
 	@Override
 	public String getModelName(String tableName) {
+		tableName = leftTrimTableName(tableName);
 		String modelName = tableName.replace("tbl_", "");
 		return GeneratorUtil.underline2PascalNaming(modelName);
 	}
 	
 	public static void main(String[] args) {
+		_strategy.setTableNameLeftTrimPrefix("tbl_dms_");
 		System.out.println(_strategy.getModelName("tbl_dms_commodity_style"));;
 	}
 	

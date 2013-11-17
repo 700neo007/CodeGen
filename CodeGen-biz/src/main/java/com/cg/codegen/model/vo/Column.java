@@ -20,6 +20,10 @@ public class Column implements Serializable {
 	 */
 	private String desc;
 	/**
+	 * 是否为主键
+	 */
+	private Boolean isPrimaryKey = false;
+	/**
 	 * 类型描述
 	 */
 	private String typeDesc;
@@ -47,6 +51,12 @@ public class Column implements Serializable {
 	}
 	public void setDesc(String desc) {
 		this.desc = desc;
+	}
+	public Boolean getIsPrimaryKey() {
+		return isPrimaryKey;
+	}
+	public void setIsPrimaryKey(Boolean isPrimaryKey) {
+		this.isPrimaryKey = isPrimaryKey;
 	}
 	public String getTypeDesc() {
 		return typeDesc;

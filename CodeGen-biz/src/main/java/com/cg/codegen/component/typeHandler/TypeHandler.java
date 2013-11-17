@@ -47,6 +47,23 @@ public abstract class TypeHandler {
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_INTEGER, "");
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_LONG, "");
 	}
+	//-------------MyBatis的JDBC 类型-------------------
+	
+	public static final String MYBATIS_JDBC_TYPE_VARCHAR = "VARCHAR";
+	
+	public static final String MYBATIS_JDBC_TYPE_CHAR = "CHAR";
+
+	public static final String MYBATIS_JDBC_TYPE_INTEGER = "INTEGER";
+	
+	public static final String MYBATIS_JDBC_TYPE_DOUBLE = "DOUBLE";
+		
+	public static final String MYBATIS_JDBC_TYPE_LONG = "LONG";	
+	
+	public static final String MYBATIS_JDBC_TYPE_TIMESTAMP = "TIMESTAMP";	
+	
+	public static final String MYBATIS_JDBC_TYPE_DATE = "DATE";	
+	
+	public static final String MYBATIS_JDBC_TYPE_TIME = "TIME";	
 	//--------------------------------
 	
 	/**

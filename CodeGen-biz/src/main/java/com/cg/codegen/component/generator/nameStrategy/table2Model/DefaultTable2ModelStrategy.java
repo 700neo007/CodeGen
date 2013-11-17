@@ -11,7 +11,7 @@ public class DefaultTable2ModelStrategy extends Table2ModelStrategy {
 	
 	private DefaultTable2ModelStrategy() {}
 	
-	public static DefaultTable2ModelStrategy getInstance() {
+	public static DefaultTable2ModelStrategy getInstance(String left) {
 		return _strategy;
 	}
 	
@@ -22,6 +22,7 @@ public class DefaultTable2ModelStrategy extends Table2ModelStrategy {
 	 */
 	@Override
 	public String getModelName(String tableName) {
+		tableName = leftTrimTableName(tableName);
 		return tableName;
 	}
 

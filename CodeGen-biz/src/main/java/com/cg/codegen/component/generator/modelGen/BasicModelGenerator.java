@@ -60,12 +60,14 @@ public class BasicModelGenerator extends ModelGenerator {
 			generateInfo = new FreeMarkerUtil.GenerateInfo();
 			
 			//表名->实体名命名策略
-			Table2ModelStrategy table2ModelStrategy = Table2ModelStrategyFactory.createTable2ModelStrategy(modelGeneratorVo.getTable2ModelStrategyClassName());
+			Table2ModelStrategy table2ModelStrategy = Table2ModelStrategyFactory.createTable2ModelStrategy(
+					modelGeneratorVo.getTable2ModelStrategyClassName(), modelGeneratorVo.getTableNameLeftTrimPrefix());
 			//DB字段->实体属性命名策略
 			Column2PropStrategy column2PropStrategy = Column2PropStrategyFactory.createColumn2PropStrategy(modelGeneratorVo.getColumn2PropStrategyClassName());
 			
 			//数据模型
 			modelMap = new HashMap<String, Object>();
+			modelMap.put(MODEL_MAP_KEY_CUR_TIME, getCurTime());
 			modelMap.put(MODEL_MAP_KEY_TABLE, table);
 			modelMap.put(MODEL_MAP_KEY_PACKAGE, modelGeneratorVo.getModelPackage());
 			//MySQL类型、JAVA类型映射，Map

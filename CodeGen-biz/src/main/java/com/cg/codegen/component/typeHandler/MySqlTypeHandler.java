@@ -50,6 +50,8 @@ public class MySqlTypeHandler extends TypeHandler {
 	public static final Pattern PATTERN_DECIMAL = Pattern.compile("decimal\\(\\d+,\\d+\\)");
 
 	public static final Pattern PATTERN_DOUBLE = Pattern.compile("double\\(\\d+,\\d+\\)");
+	
+	public static final Pattern PATTERN_DOUBLE_NO_LEN = Pattern.compile("double");
 
 	public static final Pattern PATTERN_INT = Pattern.compile("int\\(\\d+\\)");
 	
@@ -72,6 +74,7 @@ public class MySqlTypeHandler extends TypeHandler {
 		PATTERN_TYPE_MAP.put(PATTERN_SMALLINT, SMALLINT);
 		PATTERN_TYPE_MAP.put(PATTERN_DECIMAL, DECIMAL);
 		PATTERN_TYPE_MAP.put(PATTERN_DOUBLE, DOUBLE);
+		PATTERN_TYPE_MAP.put(PATTERN_DOUBLE_NO_LEN, DOUBLE);
 		PATTERN_TYPE_MAP.put(PATTERN_INT, INT);
 		PATTERN_TYPE_MAP.put(PATTERN_BIGINT, BIGINT);
 		PATTERN_TYPE_MAP.put(PATTERN_DATE, DATE);
@@ -180,6 +183,25 @@ public class MySqlTypeHandler extends TypeHandler {
 		SQL_TYPE_JAVA_TYPE_MAP.put(DATE, JAVA_TYPE_SQLDATE);
 		SQL_TYPE_JAVA_TYPE_MAP.put(TIME, JAVA_TYPE_TIME);
 		SQL_TYPE_JAVA_TYPE_MAP.put(TIMESTAMP, JAVA_TYPE_TIMESTAMP);
+	}
+	//------------------------------------
+	
+	/**
+	 * SQL类型与MyBatis JDBC类型的映射
+	 */
+	public static final Map<String, String> SQL_TPYE_MYBATIS_JDBC_TYPE_MAP = new HashMap<String, String>();
+	static {
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(VARCHAR, MYBATIS_JDBC_TYPE_VARCHAR);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(CHAR, MYBATIS_JDBC_TYPE_CHAR);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(DATETIME, MYBATIS_JDBC_TYPE_TIMESTAMP);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(SMALLINT, MYBATIS_JDBC_TYPE_INTEGER);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(DECIMAL, MYBATIS_JDBC_TYPE_DOUBLE);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(DOUBLE, MYBATIS_JDBC_TYPE_DOUBLE);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(INT, MYBATIS_JDBC_TYPE_INTEGER);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(BIGINT, MYBATIS_JDBC_TYPE_LONG);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(DATE, MYBATIS_JDBC_TYPE_DATE);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(TIME, MYBATIS_JDBC_TYPE_TIME);
+		SQL_TPYE_MYBATIS_JDBC_TYPE_MAP.put(TIMESTAMP, MYBATIS_JDBC_TYPE_TIMESTAMP);
 	}
 	//------------------------------------
 	

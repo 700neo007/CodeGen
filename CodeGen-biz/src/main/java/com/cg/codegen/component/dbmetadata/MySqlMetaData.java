@@ -68,6 +68,11 @@ public class MySqlMetaData extends DBMetaData {
 			column.setName(MapUtils.getString(row, "COLUMN_NAME"));
 			column.setDesc(MapUtils.getString(row, "COLUMN_COMMENT"));
 			
+			String key = MapUtils.getString(row, "COLUMN_KEY");
+			if ("PRI".equals(key)) {
+				column.setIsPrimaryKey(true);
+			}
+			
 			typeInfo = MySqlTypeHandler.getTypeInfo(MapUtils.getString(row, "COLUMN_TYPE"));
 			try {
 				PropertyUtils.copyProperties(column, typeInfo);

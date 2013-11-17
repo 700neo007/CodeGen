@@ -25,6 +25,10 @@ public abstract class ModelGeneratorVo {
 	 */
 	private String table2ModelStrategyClassName;
 	/**
+	 * 表名待去除的前缀
+	 */
+	private String tableNameLeftTrimPrefix;
+	/**
 	 * DB字段->实体属性的命名策略类名
 	 */
 	private String column2PropStrategyClassName;
@@ -52,6 +56,12 @@ public abstract class ModelGeneratorVo {
 	}
 	public void setTable2ModelStrategyClassName(String table2ModelStrategyClassName) {
 		this.table2ModelStrategyClassName = table2ModelStrategyClassName;
+	}
+	public String getTableNameLeftTrimPrefix() {
+		return tableNameLeftTrimPrefix;
+	}
+	public void setTableNameLeftTrimPrefix(String tableNameLeftTrimPrefix) {
+		this.tableNameLeftTrimPrefix = tableNameLeftTrimPrefix;
 	}
 	public String getColumn2PropStrategyClassName() {
 		return column2PropStrategyClassName;

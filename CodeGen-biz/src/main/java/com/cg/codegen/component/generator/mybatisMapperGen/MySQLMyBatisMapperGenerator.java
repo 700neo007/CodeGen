@@ -70,12 +70,14 @@ public class MySQLMyBatisMapperGenerator extends MyBatisMapperGenerator  {
 			mapperXmlGenerateInfo = new FreeMarkerUtil.GenerateInfo();
 			
 			//表名->实体名命名策略
-			Table2ModelStrategy table2ModelStrategy = Table2ModelStrategyFactory.createTable2ModelStrategy(myBatisMapperGeneratorVo.getTable2ModelStrategyClassName());
+			Table2ModelStrategy table2ModelStrategy = Table2ModelStrategyFactory.createTable2ModelStrategy(
+					myBatisMapperGeneratorVo.getTable2ModelStrategyClassName(), myBatisMapperGeneratorVo.getTableNameLeftTrimPrefix());
 			//DB字段->实体属性命名策略
 			Column2PropStrategy column2PropStrategy = Column2PropStrategyFactory.createColumn2PropStrategy(myBatisMapperGeneratorVo.getColumn2PropStrategyClassName());
 			
 			//数据模型
 			modelMap = new HashMap<String, Object>();
+			modelMap.put(MODEL_MAP_KEY_CUR_TIME, getCurTime());
 			modelMap.put(MODEL_MAP_KEY_TABLE, table);
 			modelMap.put(MODEL_MAP_KEY_PACKAGE, myBatisMapperGeneratorVo.getModelPackage());
 			//MySQL类型、JAVA类型映射，Map
@@ -86,6 +88,12 @@ public class MySQLMyBatisMapperGenerator extends MyBatisMapperGenerator  {
 			modelMap.put(MODEL_MAP_KEY_COLUMN_2_PROP_NAME_STRATEGY, column2PropStrategy);
 			//generatorUtil
 			modelMap.put(MODEL_MAP_KEY_GENERATOR_UTIL, GeneratorUtil.getInstance());
+			//MyBatis Mapper包名
+			modelMap.put(MODEL_MAP_KEY_MYBATIS_MAPPER_PACKAGE, myBatisMapperGeneratorVo.getMyBatisMapperPackage());
+			//MyBatis Mapper XML包名
+			modelMap.put(MODEL_MAP_KEY_MYBATIS_MAPPER_XML_PACKAGE, myBatisMapperGeneratorVo.getMyBatisMapperXmlPackage());
+			//SQL类型与MyBatis JDBC类型的映射
+			modelMap.put(MODEL_MAP_KEY_SQL_TPYE_MYBATIS_JDBC_TYPE_MAP, MySqlTypeHandler.SQL_TPYE_MYBATIS_JDBC_TYPE_MAP);
 			
 			//数据模型
 			mapperGenerateInfo.setModelMap(modelMap);
@@ -100,8 +108,10 @@ public class MySQLMyBatisMapperGenerator extends MyBatisMapperGenerator  {
 			mapperXmlGenerateInfo.setFtlFile(myBatisMapperGeneratorVo.getMyBatisMapperXmlFtlFile());
 			
 			//输出文件基路径
-			mapperOutputRoot = "";
-			mapperXmlOutputRoot = "";
+			mapperOutputRoot = myBatisMapperGeneratorVo.getMyBatisMapperOutputRoot() + File.separator +
+					GeneratorUtil.getPathByPackage(myBatisMapperGeneratorVo.getMyBatisMapperPackage());
+			mapperXmlOutputRoot = myBatisMapperGeneratorVo.getMyBatisMapperOutputRoot() + File.separator +
+					GeneratorUtil.getPathByPackage(myBatisMapperGeneratorVo.getMyBatisMapperXmlPackage());
 			mapperGenerateInfo.setTargetRoot(mapperOutputRoot);
 			mapperXmlGenerateInfo.setTargetRoot(mapperXmlOutputRoot);
 			try {
@@ -112,8 +122,8 @@ public class MySQLMyBatisMapperGenerator extends MyBatisMapperGenerator  {
 			}
 			
 			//输出文件
-			mapperGenerateInfo.setTargetFile("");
-			mapperXmlGenerateInfo.setTargetFile("");
+			mapperGenerateInfo.setTargetFile(table2ModelStrategy.getModelName(table.getName()) + "Mapper.java");
+			mapperXmlGenerateInfo.setTargetFile(table2ModelStrategy.getModelName(table.getName()) + "Mapper.xml");
 			
 			mapperGenerateInfoList.add(mapperGenerateInfo);
 			mapperXmlGenerateInfoList.add(mapperXmlGenerateInfo);

@@ -8,6 +8,7 @@ import ${item};
 /**
  * ${table.desc}
  * @author CodeGen
+ * ${time}
  */
 public class ${table2ModelStrategy.getModelName(table.name)} implements Serializable {
 	

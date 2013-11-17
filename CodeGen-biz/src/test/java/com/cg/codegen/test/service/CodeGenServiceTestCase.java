@@ -43,7 +43,8 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 		generatorVo.setModelFtlFile("BasicModel.ftl");
 		generatorVo.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
 		generatorVo.setModelGeneratorClassName("com.cg.codegen.component.generator.modelGen.BasicModelGenerator");
-		generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.TblUnderlineTable2ModelStrategy");
+		generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
+		generatorVo.setTableNameLeftTrimPrefix("tbl_dms_");
 		generatorVo.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
 		
 		codeGenService.generateModel(generatorVo);
@@ -56,16 +57,18 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 	@Test
 	public void testGenerateMyBatisMapper() throws Exception {
 		List<String> tableNameList = new ArrayList<String>();
-//		tableNameList.add("tbl_dms_commodity_style");
-//		tableNameList.add("tbl_dms_commodity_product");
+		tableNameList.add("tbl_dms_commodity_style");
+		tableNameList.add("tbl_dms_commodity_product");
 		tableNameList.add("tbl_dms_auth_line_commodity_ref");
 		
 		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
+		System.out.println("@@--#-> tableList:" + JsonUtil.toJson(tableList));
 		
 		GeneratorVo generatorVo = new GeneratorVo();
 		generatorVo.setTableList(tableList);
 		generatorVo.setModelPackage("com.cg.model");
-		generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.TblUnderlineTable2ModelStrategy");
+		generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
+		generatorVo.setTableNameLeftTrimPrefix("tbl_dms_");
 		generatorVo.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
 		
 		generatorVo.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
