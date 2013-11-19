@@ -57,7 +57,7 @@ public abstract class TypeHandler {
 	
 	public static final String MYBATIS_JDBC_TYPE_DOUBLE = "DOUBLE";
 		
-	public static final String MYBATIS_JDBC_TYPE_LONG = "LONG";	
+	public static final String MYBATIS_JDBC_TYPE_BIGINT = "BIGINT";	
 	
 	public static final String MYBATIS_JDBC_TYPE_TIMESTAMP = "TIMESTAMP";	
 	
