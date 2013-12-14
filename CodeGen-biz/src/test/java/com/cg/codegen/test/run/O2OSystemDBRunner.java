@@ -17,7 +17,7 @@ public class O2OSystemDBRunner extends BaseTestCase {
 	private CodeGenService codeGenService;
 	
 	@Test
-	public void genModelAndMapper() throws Exception {
+	public void genConfModelAndMapper() throws Exception {
 		List<String> tableNameList = new ArrayList<String>();
 		tableNameList.add("t_system_ip_info");
 		
@@ -26,6 +26,32 @@ public class O2OSystemDBRunner extends BaseTestCase {
 		GeneratorVo generatorVo = new GeneratorVo();
 		generatorVo.setTableList(tableList);
 		generatorVo.setModelPackage("com.o2o.system.conf.model");
+		generatorVo.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
+		generatorVo.setModelFtlFile("BasicModel.ftl");
+		generatorVo.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
+		generatorVo.setTableNameLeftTrimPrefix("t_system_");
+		
+		generatorVo.setMyBatisMapperPackage(generatorVo.getModelPackage().replace("model", "") + "dao");
+		generatorVo.setMyBatisMapperXmlPackage(generatorVo.getMyBatisMapperPackage() + ".mapper");
+		generatorVo.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
+		generatorVo.setMyBatisMapperFtlFile("mapper.ftl");
+		generatorVo.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
+		generatorVo.setMyBatisMapperOutputRoot(generatorVo.getModelOutputRoot());
+		
+		codeGenService.generateModel(generatorVo);
+		codeGenService.generateMyBatisMapper(generatorVo);
+	}
+	
+	@Test
+	public void genUserModelAndMapper() throws Exception {
+		List<String> tableNameList = new ArrayList<String>();
+		tableNameList.add("t_system_user");
+		
+		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
+		
+		GeneratorVo generatorVo = new GeneratorVo();
+		generatorVo.setTableList(tableList);
+		generatorVo.setModelPackage("com.o2o.system.user.model");
 		generatorVo.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
 		generatorVo.setModelFtlFile("BasicModel.ftl");
 		generatorVo.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");

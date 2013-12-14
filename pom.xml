@@ -14,7 +14,7 @@
 		<codeGen.version>0.0.1-SNAPSHOT</codeGen.version>
 		<spring.version>3.2.4.RELEASE</spring.version>
 		<aspectj.version>1.7.3</aspectj.version>
-		<cglib.version>3.0</cglib.version>
+		<cglib.version>2.2.2</cglib.version>
 		<servletApi.version>2.5</servletApi.version>
 		<jstl.version>1.2</jstl.version>
 		<gson.version>2.2.4</gson.version>

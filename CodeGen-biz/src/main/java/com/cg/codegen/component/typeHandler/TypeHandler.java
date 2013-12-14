@@ -15,7 +15,7 @@ public abstract class TypeHandler {
 	
 	public static final String JAVA_TYPE_UTILDATE = "Date";
 	
-	public static final String JAVA_TYPE_SQLDATE = "Date";
+	public static final String JAVA_TYPE_SQLDATE = "java.sql.Date";
 	
 	public static final String JAVA_TYPE_TIME = "Time";
 	
@@ -38,7 +38,6 @@ public abstract class TypeHandler {
 	static {
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_STRING, "");
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_UTILDATE, "java.util.Date");
-		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_SQLDATE, "java.sql.Date");
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_TIME, "java.sql.Time");
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_TIMESTAMP, "java.sql.Timestamp");
 		JAVA_TYPE_PACKAGE_MAP.put(JAVA_TYPE_SHORT, "");
