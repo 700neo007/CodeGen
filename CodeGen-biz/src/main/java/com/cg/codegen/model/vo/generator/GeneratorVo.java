@@ -80,6 +80,18 @@ public class GeneratorVo {
 	 * MyBatis Mapper输出基路径
 	 */
 	private String myBatisMapperOutputRoot;
+	
+	//--- 生成MyBatis Example 的配置(Start) ---
+	/**
+	 * MyBatis Example BaseMapper的包名
+	 */
+	private String myBatisExampleBaseMapperPackage;
+	/**
+	 * MyBatis Example BaseMapper的名称
+	 */
+	private String myBatisExampleBaseMapperName;
+	//--- 生成MyBatis Example 的配置(End) ---
+	
 	//--------------------- 生成MyBatis Mapper(End) ---------------------------
 	
 	public List<Table> getTableList() {
@@ -178,7 +190,17 @@ public class GeneratorVo {
 	public void setMyBatisMapperOutputRoot(String myBatisMapperOutputRoot) {
 		this.myBatisMapperOutputRoot = myBatisMapperOutputRoot;
 	}
-	
-	
+	public String getMyBatisExampleBaseMapperPackage() {
+		return myBatisExampleBaseMapperPackage;
+	}
+	public void setMyBatisExampleBaseMapperPackage(String myBatisExampleBaseMapperPackage) {
+		this.myBatisExampleBaseMapperPackage = myBatisExampleBaseMapperPackage;
+	}
+	public String getMyBatisExampleBaseMapperName() {
+		return myBatisExampleBaseMapperName;
+	}
+	public void setMyBatisExampleBaseMapperName(String myBatisExampleBaseMapperName) {
+		this.myBatisExampleBaseMapperName = myBatisExampleBaseMapperName;
+	}
 	
 }

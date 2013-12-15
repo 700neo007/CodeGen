@@ -48,6 +48,16 @@ public abstract class MyBatisMapperGeneratorVo {
 	 * MyBatis Mapper输出基路径
 	 */
 	private String myBatisMapperOutputRoot;
+	//----
+	/**
+	 * MyBatis Example BaseMapper的包名
+	 */
+	private String myBatisExampleBaseMapperPackage;
+	/**
+	 * MyBatis Example BaseMapper的名称
+	 */
+	private String myBatisExampleBaseMapperName;
+	//----
 	
 	public String getModelPackage() {
 		return modelPackage;
@@ -109,7 +119,17 @@ public abstract class MyBatisMapperGeneratorVo {
 	public void setMyBatisMapperOutputRoot(String myBatisMapperOutputRoot) {
 		this.myBatisMapperOutputRoot = myBatisMapperOutputRoot;
 	}
-	
-	
+	public String getMyBatisExampleBaseMapperPackage() {
+		return myBatisExampleBaseMapperPackage;
+	}
+	public void setMyBatisExampleBaseMapperPackage(String myBatisExampleBaseMapperPackage) {
+		this.myBatisExampleBaseMapperPackage = myBatisExampleBaseMapperPackage;
+	}
+	public String getMyBatisExampleBaseMapperName() {
+		return myBatisExampleBaseMapperName;
+	}
+	public void setMyBatisExampleBaseMapperName(String myBatisExampleBaseMapperName) {
+		this.myBatisExampleBaseMapperName = myBatisExampleBaseMapperName;
+	}
 	
 }

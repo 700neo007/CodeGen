@@ -12,7 +12,7 @@ import com.cg.codegen.model.vo.generator.mybatisMapperGen.MyBatisMapperGenerator
  *
  */
 public abstract class MyBatisMapperGenerator extends CodeGenerator {
-
+	
 	/**
 	 * table列表
 	 */

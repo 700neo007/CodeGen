@@ -94,6 +94,10 @@ public class MySQLMyBatisMapperGenerator extends MyBatisMapperGenerator  {
 			modelMap.put(MODEL_MAP_KEY_MYBATIS_MAPPER_XML_PACKAGE, myBatisMapperGeneratorVo.getMyBatisMapperXmlPackage());
 			//SQL类型与MyBatis JDBC类型的映射
 			modelMap.put(MODEL_MAP_KEY_SQL_TPYE_MYBATIS_JDBC_TYPE_MAP, MySqlTypeHandler.SQL_TPYE_MYBATIS_JDBC_TYPE_MAP);
+			//BaseMapper包名
+			modelMap.put(MODEL_MAP_KEY_BASE_MAPPER_PACKAGE, myBatisMapperGeneratorVo.getMyBatisExampleBaseMapperPackage());			
+			//BaseMapper名称
+			modelMap.put(MODEL_MAP_KEY_BASE_MAPPER_NAME, myBatisMapperGeneratorVo.getMyBatisExampleBaseMapperName());
 			
 			//数据模型
 			mapperGenerateInfo.setModelMap(modelMap);

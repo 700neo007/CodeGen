@@ -43,6 +43,11 @@ public abstract class CodeGenerator {
 	public static final String MODEL_MAP_KEY_MYBATIS_MAPPER_XML_PACKAGE = "myBatisMapperXmlPackage";
 
 	public static final String MODEL_MAP_KEY_SQL_TPYE_MYBATIS_JDBC_TYPE_MAP = "SQL_TPYE_MYBATIS_JDBC_TYPE_MAP";
+
+	public static final String MODEL_MAP_KEY_BASE_MAPPER_PACKAGE = "myBatisExampleBaseMapperPackage";
+
+	public static final String MODEL_MAP_KEY_BASE_MAPPER_NAME = "myBatisExampleBaseMapperName";
+	
 	// -----------------------------------------
 	
 	/**

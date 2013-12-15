@@ -1,4 +1,4 @@
-package com.cg.codegen.test.run;
+package com.cg.codegen.test.run.origin;
 
 import java.util.ArrayList;
 import java.util.List;
