@@ -10,14 +10,27 @@ public class GenConf {
 	
 	public static final String tableNameLeftTrimPrefix = "t_system_";
 	
+	//---------------------------------------------------------------------
+	
+	public static final String myBatisMapperGeneratorClassName = "com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisExampleMapperGenerator";
+	
 	public static final String myBatisMapperRoot = "D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql\\example";
 	
 	public static final String myBatisMapperFtlFile = "mapper.ftl";
 	
 	public static final String myBatisMapperXmlFtlFile = "mapperXml.ftl";
 	
+	//--------------------------
 	public static final String myBatisExampleBaseMapperPackage = "com.o2o.common.mybatis";	
 	
 	public static final String myBatisExampleBaseMapperName = "BaseMapper";
+	
+	public static final String myBatisExampleBaseCriteriaPackage = myBatisExampleBaseMapperPackage;
+
+	public static final String myBatisExampleBaseCriteriaName = "BaseCriteria";
+
+	public static final String myBatisExampleCriteriaFtlFile = "criteria.ftl";
+	
+	//---------------------------------------------------------------------
 	
 }

@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import com.cg.codegen.model.vo.generator.GeneratorVo;
+import com.cg.codegen.model.vo.generator.GeneratorInput;
 
 /**
  * MyBatis Mapper 生成器工厂
@@ -19,18 +19,18 @@ public class MyBatisMapperGeneratorFactory {
 	
 	/**
 	 * 创建实体生成器
-	 * @param generatorVo 
+	 * @param generatorInput 
 	 * @return
 	 */
-	public static MyBatisMapperGenerator createMyBatisMapperGenerator(GeneratorVo generatorVo) {
+	public static MyBatisMapperGenerator createMyBatisMapperGenerator(GeneratorInput generatorInput) {
 		MyBatisMapperGenerator myBatisMapperGenerator = null;
 		try {
 			@SuppressWarnings("unchecked")
 			Class<? extends MyBatisMapperGenerator> myBatisMapperGeneratorClz = (Class<? extends MyBatisMapperGenerator>) 
-					Class.forName(generatorVo.getMyBatisMapperGeneratorClassName());
+					Class.forName(generatorInput.getMyBatisMapperGeneratorClassName());
 			Constructor<? extends MyBatisMapperGenerator> myBatisMapperGeneratorConstructor = 
-					myBatisMapperGeneratorClz.getConstructor(GeneratorVo.class);
-			myBatisMapperGenerator = myBatisMapperGeneratorConstructor.newInstance(generatorVo);
+					myBatisMapperGeneratorClz.getConstructor(GeneratorInput.class);
+			myBatisMapperGenerator = myBatisMapperGeneratorConstructor.newInstance(generatorInput);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}
@@ -39,9 +39,9 @@ public class MyBatisMapperGeneratorFactory {
 	}
 	
 	public static void main(String[] args) {
-		GeneratorVo generatorVo = new GeneratorVo();
-		generatorVo.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
-		MyBatisMapperGenerator myBatisMapperGenerator = createMyBatisMapperGenerator(generatorVo);
+		GeneratorInput generatorInput = new GeneratorInput();
+		generatorInput.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
+		MyBatisMapperGenerator myBatisMapperGenerator = createMyBatisMapperGenerator(generatorInput);
 		System.out.println(myBatisMapperGenerator.getClass());
 	}
 }

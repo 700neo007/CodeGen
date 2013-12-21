@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorVo;
+import com.cg.codegen.model.vo.generator.GeneratorInput;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.codegen.test.BaseTestCase;
 
@@ -43,27 +43,27 @@ public class O2OCommodityDBRunner extends BaseTestCase {
 		
 		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
 		
-		GeneratorVo generatorVo = new GeneratorVo();
-		generatorVo.setTableList(tableList);
-		generatorVo.setModelPackage("com.o2o.commodity");
-		generatorVo.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
-		generatorVo.setModelFtlFile("BasicModel.ftl");
-		generatorVo.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
-		//generatorVo.setModelGeneratorClassName("com.cg.codegen.component.generator.modelGen.BasicModelGenerator");
-		//generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
-		generatorVo.setTableNameLeftTrimPrefix("t_commodity_");
-		//generatorVo.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
+		GeneratorInput generatorInput = new GeneratorInput();
+		generatorInput.setTableList(tableList);
+		generatorInput.setModelPackage("com.o2o.commodity");
+		generatorInput.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
+		generatorInput.setModelFtlFile("BasicModel.ftl");
+		generatorInput.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
+		//generatorInput.setModelGeneratorClassName("com.cg.codegen.component.generator.modelGen.BasicModelGenerator");
+		//generatorInput.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
+		generatorInput.setTableNameLeftTrimPrefix("t_commodity_");
+		//generatorInput.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
 		
-		//generatorVo.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
-		generatorVo.setMyBatisMapperPackage(generatorVo.getModelPackage() + ".dao");
-		generatorVo.setMyBatisMapperXmlPackage(generatorVo.getMyBatisMapperPackage() + ".mapper");
-		generatorVo.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
-		generatorVo.setMyBatisMapperFtlFile("mapper.ftl");
-		generatorVo.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
-		generatorVo.setMyBatisMapperOutputRoot(generatorVo.getModelOutputRoot());
+		//generatorInput.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
+		generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage() + ".dao");
+		generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
+		generatorInput.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
+		generatorInput.setMyBatisMapperFtlFile("mapper.ftl");
+		generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
+		generatorInput.setMyBatisMapperOutputRoot(generatorInput.getModelOutputRoot());
 		
-		codeGenService.generateModel(generatorVo);
-		codeGenService.generateMyBatisMapper(generatorVo);
+		codeGenService.generateModel(generatorInput);
+		codeGenService.generateMyBatisMapper(generatorInput);
 	}
 	
 }

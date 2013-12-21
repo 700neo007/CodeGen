@@ -6,7 +6,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import com.cg.codegen.model.vo.generator.GeneratorVo;
+import com.cg.codegen.model.vo.generator.GeneratorInput;
 
 /**
  * 实体生成器工厂
@@ -19,18 +19,18 @@ public class ModelGeneratorFactory {
 	
 	/**
 	 * 创建实体生成器
-	 * @param generatorVo 
+	 * @param generatorInput 
 	 * @return
 	 */
-	public static ModelGenerator createModelGenerator(GeneratorVo generatorVo) {
+	public static ModelGenerator createModelGenerator(GeneratorInput generatorInput) {
 		ModelGenerator modelGenerator = null;
 		try {
 			@SuppressWarnings("unchecked")
 			Class<? extends ModelGenerator> modelGeneratorClz = (Class<? extends ModelGenerator>) 
-					Class.forName(generatorVo.getModelGeneratorClassName());
+					Class.forName(generatorInput.getModelGeneratorClassName());
 			Constructor<? extends ModelGenerator> modelGeneratorConstructor = 
-					modelGeneratorClz.getConstructor(GeneratorVo.class);
-			modelGenerator = modelGeneratorConstructor.newInstance(generatorVo);
+					modelGeneratorClz.getConstructor(GeneratorInput.class);
+			modelGenerator = modelGeneratorConstructor.newInstance(generatorInput);
 		} catch (Exception e) {
 			logger.error(e.getMessage(), e);
 		}

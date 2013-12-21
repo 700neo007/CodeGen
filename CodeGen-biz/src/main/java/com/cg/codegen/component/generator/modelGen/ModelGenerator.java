@@ -7,8 +7,10 @@ import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.util.Assert;
 
 import com.cg.codegen.component.generator.CodeGenerator;
+import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
 import com.cg.codegen.component.typeHandler.TypeHandler;
 import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
@@ -22,26 +24,32 @@ import com.cg.codegen.model.vo.generator.modelGen.ModelGeneratorVo;
 public abstract class ModelGenerator extends CodeGenerator {
 	
 	/**
-	 * table列表
-	 */
-	private List<Table> tableList;
-	/**
-	 * 实体生成vo
-	 */
-	private ModelGeneratorVo modelGeneratorVo;
-	
-	/**
 	 * 生成实体
 	 */
 	public abstract void generateModel();
 	
 	/**
-	 * 获取实体生成器vo，并转化为子类
-	 * @return
+	 * 获取模板模型map
+	 * @return 返回Map<表名, Map<key, value>>
 	 */
-	@SuppressWarnings("unchecked")
-	protected <T extends ModelGeneratorVo> T getModelGeneratorVoAsSub() {
-		return (T) modelGeneratorVo;
+	@Override
+	protected Map<String, Map<String, Object>> getTemplateModelMaps() {
+		Map<String, Map<String, Object>> modelMaps = super.getTemplateModelMaps();
+		
+		ModelGeneratorVo modelGeneratorVo = getGeneratorVoAsSub();
+		List<Table> tableList = modelGeneratorVo.getTableList();
+		
+		for (Table table : tableList) {
+			Map<String, Object> modelMap = modelMaps.get(table.getName());
+			Assert.notNull(modelMap, String.format("tableName(%s) could not be null", table.getName()));
+			
+			//获取import列表
+			modelMap.put(MODEL_MAP_KEY_IMPORT_LIST, getImportList(table, MySqlTypeHandler.SQL_TYPE_JAVA_TYPE_MAP));
+			//version id
+			modelMap.put(MODEL_MAP_KEY_VERSION_ID, getModelVersionId());
+		}
+		
+		return modelMaps;
 	}
 	
 	/**
@@ -83,22 +91,5 @@ public abstract class ModelGenerator extends CodeGenerator {
 				(int)(Math.random() * 1000)
 				);
 	}
-
-	public List<Table> getTableList() {
-		return tableList;
-	}
-
-	public void setTableList(List<Table> tableList) {
-		this.tableList = tableList;
-	}
-	
-	public ModelGeneratorVo getModelGeneratorVo() {
-		return modelGeneratorVo;
-	}
-
-	public void setModelGeneratorVo(ModelGeneratorVo modelGeneratorVo) {
-		this.modelGeneratorVo = modelGeneratorVo;
-	}
-	
 	
 }

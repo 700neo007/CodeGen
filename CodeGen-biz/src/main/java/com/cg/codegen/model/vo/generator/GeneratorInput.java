@@ -5,11 +5,11 @@ import java.util.List;
 import com.cg.codegen.model.vo.Table;
 
 /**
- * 生成器vo
+ * 生成器输入参数
  * @author Neo
  *
  */
-public class GeneratorVo {
+public class GeneratorInput {
 
 	/**
 	 * 表list
@@ -90,6 +90,22 @@ public class GeneratorVo {
 	 * MyBatis Example BaseMapper的名称
 	 */
 	private String myBatisExampleBaseMapperName;
+	/**
+	 * MyBatis Example Criteria基类的包名
+	 */
+	private String myBatisExampleBaseCriteriaPackage;
+	/**
+	 * MyBatis Example Criteria基类的名称
+	 */
+	private String myBatisExampleBaseCriteriaName;
+	/**
+	 * MyBatis Example Criteria包名
+	 */
+	private String myBatisExampleCriteriaPackage;
+	/**
+	 * MyBatis Example Criteria模板
+	 */
+	private String myBatisExampleCriteriaFtlFile;
 	//--- 生成MyBatis Example 的配置(End) ---
 	
 	//--------------------- 生成MyBatis Mapper(End) ---------------------------
@@ -201,6 +217,30 @@ public class GeneratorVo {
 	}
 	public void setMyBatisExampleBaseMapperName(String myBatisExampleBaseMapperName) {
 		this.myBatisExampleBaseMapperName = myBatisExampleBaseMapperName;
+	}
+	public String getMyBatisExampleBaseCriteriaPackage() {
+		return myBatisExampleBaseCriteriaPackage;
+	}
+	public void setMyBatisExampleBaseCriteriaPackage(String myBatisExampleBaseCriteriaPackage) {
+		this.myBatisExampleBaseCriteriaPackage = myBatisExampleBaseCriteriaPackage;
+	}
+	public String getMyBatisExampleBaseCriteriaName() {
+		return myBatisExampleBaseCriteriaName;
+	}
+	public void setMyBatisExampleBaseCriteriaName(String myBatisExampleBaseCriteriaName) {
+		this.myBatisExampleBaseCriteriaName = myBatisExampleBaseCriteriaName;
+	}
+	public String getMyBatisExampleCriteriaPackage() {
+		return myBatisExampleCriteriaPackage;
+	}
+	public void setMyBatisExampleCriteriaPackage(String myBatisExampleCriteriaPackage) {
+		this.myBatisExampleCriteriaPackage = myBatisExampleCriteriaPackage;
+	}
+	public String getMyBatisExampleCriteriaFtlFile() {
+		return myBatisExampleCriteriaFtlFile;
+	}
+	public void setMyBatisExampleCriteriaFtlFile(String myBatisExampleCriteriaFtlFile) {
+		this.myBatisExampleCriteriaFtlFile = myBatisExampleCriteriaFtlFile;
 	}
 	
 }

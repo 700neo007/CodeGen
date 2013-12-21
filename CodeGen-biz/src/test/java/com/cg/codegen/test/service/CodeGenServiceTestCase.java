@@ -7,7 +7,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorVo;
+import com.cg.codegen.model.vo.generator.GeneratorInput;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.codegen.test.BaseTestCase;
 import com.cg.common.util.JsonUtil;
@@ -36,18 +36,18 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 		
 		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
 		
-		GeneratorVo generatorVo = new GeneratorVo();
-		generatorVo.setTableList(tableList);
-		generatorVo.setModelPackage("com.cg.model");
-		generatorVo.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
-		generatorVo.setModelFtlFile("BasicModel.ftl");
-		generatorVo.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
-		generatorVo.setModelGeneratorClassName("com.cg.codegen.component.generator.modelGen.BasicModelGenerator");
-		generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
-		generatorVo.setTableNameLeftTrimPrefix("tbl_dms_");
-		generatorVo.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
+		GeneratorInput generatorInput = new GeneratorInput();
+		generatorInput.setTableList(tableList);
+		generatorInput.setModelPackage("com.cg.model");
+		generatorInput.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
+		generatorInput.setModelFtlFile("BasicModel.ftl");
+		generatorInput.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
+		generatorInput.setModelGeneratorClassName("com.cg.codegen.component.generator.modelGen.BasicModelGenerator");
+		generatorInput.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
+		generatorInput.setTableNameLeftTrimPrefix("tbl_dms_");
+		generatorInput.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
 		
-		codeGenService.generateModel(generatorVo);
+		codeGenService.generateModel(generatorInput);
 	}
 	
 	/**
@@ -64,22 +64,22 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
 		System.out.println("@@--#-> tableList:" + JsonUtil.toJson(tableList));
 		
-		GeneratorVo generatorVo = new GeneratorVo();
-		generatorVo.setTableList(tableList);
-		generatorVo.setModelPackage("com.cg.model");
-		generatorVo.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
-		generatorVo.setTableNameLeftTrimPrefix("tbl_dms_");
-		generatorVo.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
+		GeneratorInput generatorInput = new GeneratorInput();
+		generatorInput.setTableList(tableList);
+		generatorInput.setModelPackage("com.cg.model");
+		generatorInput.setTable2ModelStrategyClassName("com.cg.codegen.component.generator.nameStrategy.table2Model.UnderlineTable2ModelStrategy");
+		generatorInput.setTableNameLeftTrimPrefix("tbl_dms_");
+		generatorInput.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
 		
-		generatorVo.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
-		generatorVo.setMyBatisMapperPackage("com.cg.dao");
-		generatorVo.setMyBatisMapperXmlPackage("com.cg.dao.mapper");
-		generatorVo.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
-		generatorVo.setMyBatisMapperFtlFile("mapper.ftl");
-		generatorVo.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
-		generatorVo.setMyBatisMapperOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
+		generatorInput.setMyBatisMapperGeneratorClassName("com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator");
+		generatorInput.setMyBatisMapperPackage("com.cg.dao");
+		generatorInput.setMyBatisMapperXmlPackage("com.cg.dao.mapper");
+		generatorInput.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
+		generatorInput.setMyBatisMapperFtlFile("mapper.ftl");
+		generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
+		generatorInput.setMyBatisMapperOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
 		
-		codeGenService.generateMyBatisMapper(generatorVo);
+		codeGenService.generateMyBatisMapper(generatorInput);
 	}
 	
 }
