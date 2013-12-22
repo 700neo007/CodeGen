@@ -2,8 +2,8 @@ package com.cg.codegen.service;
 
 import java.util.List;
 
+import com.cg.codegen.component.generator.vo.GeneratorInput;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorInput;
 
 /**
  * CodeGen Service
@@ -38,12 +38,18 @@ public interface CodeGenService {
 	 * @param generatorInput 生成器输入参数
 	 * @throws Exception
 	 */
-	public void generateModel(GeneratorInput generatorInput) throws Exception;
+	public void genModel(GeneratorInput generatorInput) throws Exception;
 	
 	/**
 	 * 生成MyBatis的Mapper
 	 * @param generatorInput 生成器输入参数
 	 */
-	public void generateMyBatisMapper(GeneratorInput generatorInput) throws Exception;
+	public void genMyBatisMapper(GeneratorInput generatorInput) throws Exception;
+	
+	/**
+	 * 生成MyBatis的Mapper XML
+	 * @param generatorInput 生成器输入参数
+	 */
+	public void genMyBatisMapperXml(GeneratorInput generatorInput) throws Exception;
 	
 }

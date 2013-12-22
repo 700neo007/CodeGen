@@ -2,7 +2,6 @@ package com.cg.codegen.component.dbmetadata;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -15,7 +14,6 @@ import com.cg.codegen.component.typeHandler.TypeHandler;
 import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
 import com.cg.common.util.JdbcUtil;
-import com.cg.common.util.JsonUtil;
 
 /**
  * MySQL 元数据
@@ -84,11 +82,6 @@ public class MySqlMetaData extends DBMetaData {
 			columnList.add(column);
 		}
 		return columnList;
-	}
-
-	public static void main(String[] args) {
-		Throwable aThrowable = new Throwable();
-		System.out.println(JsonUtil.toJson(new Date()));
 	}
 	
 }

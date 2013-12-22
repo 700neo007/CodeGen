@@ -9,15 +9,17 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.cg.codegen.component.generator.modelGen.ModelGenerator;
-import com.cg.codegen.component.generator.modelGen.ModelGeneratorFactory;
-import com.cg.codegen.component.generator.mybatisMapperGen.MyBatisMapperGenerator;
-import com.cg.codegen.component.generator.mybatisMapperGen.MyBatisMapperGeneratorFactory;
+import com.cg.codegen.component.generator.modelGen.ModelGen;
+import com.cg.codegen.component.generator.modelGen.ModelGenFactory;
+import com.cg.codegen.component.generator.mybatisGen.mapperGen.MyBatisMapperGen;
+import com.cg.codegen.component.generator.mybatisGen.mapperGen.MyBatisMapperGenFactory;
+import com.cg.codegen.component.generator.mybatisGen.mapperXmlGen.MyBatisMapperXmlGen;
+import com.cg.codegen.component.generator.mybatisGen.mapperXmlGen.MyBatisMapperXmlGenFactory;
+import com.cg.codegen.component.generator.vo.GeneratorInput;
 import com.cg.codegen.dao.CodeGenDao;
 import com.cg.codegen.dao.DBMetaDataDao;
 import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorInput;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.common.service.BaseService;
 
@@ -120,22 +122,27 @@ public class CodeGenServiceImpl extends BaseService implements CodeGenService {
 	 * @param generatorInput 生成器输入参数
 	 * @throws Exception
 	 */
-	public void generateModel(GeneratorInput generatorInput) throws Exception {
-		//创建实体生成器
-		ModelGenerator modelGenerator = ModelGeneratorFactory.createModelGenerator(generatorInput);
-		//生成实体
-		modelGenerator.generateModel();
+	public void genModel(GeneratorInput generatorInput) throws Exception {
+		ModelGen modelGenerator = ModelGenFactory.createModelGenerator(generatorInput);
+		modelGenerator.generate();;
 	}
 	
 	/**
 	 * 生成MyBatis的Mapper
 	 * @param generatorInput 生成器输入参数
 	 */
-	public void generateMyBatisMapper(GeneratorInput generatorInput) throws Exception {
-		//创建MyBatis Mapper生成器
-		MyBatisMapperGenerator myBatisMapperGenerator = MyBatisMapperGeneratorFactory.createMyBatisMapperGenerator(generatorInput);
-		//生成MyBatis Mapper
-		myBatisMapperGenerator.generateMyBatisMapper();
+	public void genMyBatisMapper(GeneratorInput generatorInput) throws Exception {
+		MyBatisMapperGen myBatisMapperGenerator = MyBatisMapperGenFactory.createMyBatisMapperGenerator(generatorInput);
+		myBatisMapperGenerator.generate();
+	}
+	
+	/**
+	 * 生成MyBatis的Mapper XML
+	 * @param generatorInput 生成器输入参数
+	 */
+	public void genMyBatisMapperXml(GeneratorInput generatorInput) throws Exception {
+		MyBatisMapperXmlGen myBatisMapperXmlGen = MyBatisMapperXmlGenFactory.createMyBatisMapperXmlGenerator(generatorInput);
+		myBatisMapperXmlGen.generate();
 	}
 	
 }

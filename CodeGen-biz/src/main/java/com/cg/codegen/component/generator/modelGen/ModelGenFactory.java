@@ -6,29 +6,29 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.Assert;
 
-import com.cg.codegen.model.vo.generator.GeneratorInput;
+import com.cg.codegen.component.generator.vo.GeneratorInput;
 
 /**
  * 实体生成器工厂
  * @author Neo
  *
  */
-public class ModelGeneratorFactory {
+public class ModelGenFactory {
 
-	private static final Logger logger = LoggerFactory.getLogger(ModelGeneratorFactory.class);
+	private static final Logger logger = LoggerFactory.getLogger(ModelGenFactory.class);
 	
 	/**
 	 * 创建实体生成器
 	 * @param generatorInput 
 	 * @return
 	 */
-	public static ModelGenerator createModelGenerator(GeneratorInput generatorInput) {
-		ModelGenerator modelGenerator = null;
+	public static ModelGen createModelGenerator(GeneratorInput generatorInput) {
+		ModelGen modelGenerator = null;
 		try {
 			@SuppressWarnings("unchecked")
-			Class<? extends ModelGenerator> modelGeneratorClz = (Class<? extends ModelGenerator>) 
+			Class<? extends ModelGen> modelGeneratorClz = (Class<? extends ModelGen>) 
 					Class.forName(generatorInput.getModelGeneratorClassName());
-			Constructor<? extends ModelGenerator> modelGeneratorConstructor = 
+			Constructor<? extends ModelGen> modelGeneratorConstructor = 
 					modelGeneratorClz.getConstructor(GeneratorInput.class);
 			modelGenerator = modelGeneratorConstructor.newInstance(generatorInput);
 		} catch (Exception e) {

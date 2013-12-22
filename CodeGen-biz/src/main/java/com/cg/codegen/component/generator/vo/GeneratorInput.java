@@ -1,4 +1,4 @@
-package com.cg.codegen.model.vo.generator;
+package com.cg.codegen.component.generator.vo;
 
 import java.util.List;
 
@@ -36,7 +36,7 @@ public class GeneratorInput {
 	/**
 	 * 实体生成器类名，默认BasicModelGenerator
 	 */
-	private String modelGeneratorClassName = "com.cg.codegen.component.generator.modelGen.BasicModelGenerator";
+	private String modelGeneratorClassName = "com.cg.codegen.component.generator.modelGen.BasicModelGen";
 	/**
 	 * 表名->实体的命名策略类名
 	 */
@@ -53,17 +53,13 @@ public class GeneratorInput {
 
 	//--------------------- 生成MyBatis Mapper(Start) ---------------------------
 	/**
-	 * MyBatis Mapper 生成器类名，默认生成MySQL 的 Mapper
+	 * MyBatis Mapper 生成器类名
 	 */
-	private String myBatisMapperGeneratorClassName = "com.cg.codegen.component.generator.mybatisMapperGen.MySQLMyBatisMapperGenerator";
+	private String myBatisMapperGeneratorClassName = "com.cg.codegen.component.generator.mybatisGen.mapperGen.MyBatisMapperGen";
 	/**
 	 * MyBatis Mapper包名
 	 */
 	private String myBatisMapperPackage;
-	/**
-	 * MyBatis Mapper XML包名
-	 */
-	private String myBatisMapperXmlPackage;
 	/**
 	 * MyBatis Mapper 模板基路径
 	 */
@@ -73,13 +69,34 @@ public class GeneratorInput {
 	 */
 	private String myBatisMapperFtlFile;
 	/**
+	 * MyBatis Mapper输出基路径
+	 */
+	private String myBatisMapperOutputRoot;
+	
+	//--------------------- 生成MyBatis Mapper(End) ---------------------------
+	
+	//--------------------- 生成MyBatis Mapper XML(Start) ---------------------------
+	/**
+	 * MyBatis Mapper XML 生成器类名
+	 */
+	private String myBatisMapperXmlGeneratorClassName = "com.cg.codegen.component.generator.mybatisGen.mapperXmlGen.MyBatisMapperXmlGen";
+	/**
+	 * MyBatis Mapper XML包名
+	 */
+	private String myBatisMapperXmlPackage;
+	/**
+	 * MyBatis Mapper XML模板基路径
+	 */
+	private String myBatisMapperXmlRoot;
+	/**
 	 * MyBatis Mapper XML 模板
 	 */
 	private String myBatisMapperXmlFtlFile;
 	/**
-	 * MyBatis Mapper输出基路径
+	 * MyBatis Mapper XML输出基路径
 	 */
-	private String myBatisMapperOutputRoot;
+	private String myBatisMapperXmlOutputRoot;
+	//--------------------- 生成MyBatis Mapper XML(Start) ---------------------------
 	
 	//--- 生成MyBatis Example 的配置(Start) ---
 	/**
@@ -108,7 +125,6 @@ public class GeneratorInput {
 	private String myBatisExampleCriteriaFtlFile;
 	//--- 生成MyBatis Example 的配置(End) ---
 	
-	//--------------------- 生成MyBatis Mapper(End) ---------------------------
 	
 	public List<Table> getTableList() {
 		return tableList;
@@ -176,12 +192,6 @@ public class GeneratorInput {
 	public void setMyBatisMapperPackage(String myBatisMapperPackage) {
 		this.myBatisMapperPackage = myBatisMapperPackage;
 	}
-	public String getMyBatisMapperXmlPackage() {
-		return myBatisMapperXmlPackage;
-	}
-	public void setMyBatisMapperXmlPackage(String myBatisMapperXmlPackage) {
-		this.myBatisMapperXmlPackage = myBatisMapperXmlPackage;
-	}
 	public String getMyBatisMapperRoot() {
 		return myBatisMapperRoot;
 	}
@@ -194,17 +204,41 @@ public class GeneratorInput {
 	public void setMyBatisMapperFtlFile(String myBatisMapperFtlFile) {
 		this.myBatisMapperFtlFile = myBatisMapperFtlFile;
 	}
+	public String getMyBatisMapperOutputRoot() {
+		return myBatisMapperOutputRoot;
+	}
+	public void setMyBatisMapperOutputRoot(String myBatisMapperOutputRoot) {
+		this.myBatisMapperOutputRoot = myBatisMapperOutputRoot;
+	}
+	public String getMyBatisMapperXmlGeneratorClassName() {
+		return myBatisMapperXmlGeneratorClassName;
+	}
+	public void setMyBatisMapperXmlGeneratorClassName(String myBatisMapperXmlGeneratorClassName) {
+		this.myBatisMapperXmlGeneratorClassName = myBatisMapperXmlGeneratorClassName;
+	}
+	public String getMyBatisMapperXmlPackage() {
+		return myBatisMapperXmlPackage;
+	}
+	public void setMyBatisMapperXmlPackage(String myBatisMapperXmlPackage) {
+		this.myBatisMapperXmlPackage = myBatisMapperXmlPackage;
+	}
+	public String getMyBatisMapperXmlRoot() {
+		return myBatisMapperXmlRoot;
+	}
+	public void setMyBatisMapperXmlRoot(String myBatisMapperXmlRoot) {
+		this.myBatisMapperXmlRoot = myBatisMapperXmlRoot;
+	}
 	public String getMyBatisMapperXmlFtlFile() {
 		return myBatisMapperXmlFtlFile;
 	}
 	public void setMyBatisMapperXmlFtlFile(String myBatisMapperXmlFtlFile) {
 		this.myBatisMapperXmlFtlFile = myBatisMapperXmlFtlFile;
 	}
-	public String getMyBatisMapperOutputRoot() {
-		return myBatisMapperOutputRoot;
+	public String getMyBatisMapperXmlOutputRoot() {
+		return myBatisMapperXmlOutputRoot;
 	}
-	public void setMyBatisMapperOutputRoot(String myBatisMapperOutputRoot) {
-		this.myBatisMapperOutputRoot = myBatisMapperOutputRoot;
+	public void setMyBatisMapperXmlOutputRoot(String myBatisMapperXmlOutputRoot) {
+		this.myBatisMapperXmlOutputRoot = myBatisMapperXmlOutputRoot;
 	}
 	public String getMyBatisExampleBaseMapperPackage() {
 		return myBatisExampleBaseMapperPackage;
@@ -242,5 +276,4 @@ public class GeneratorInput {
 	public void setMyBatisExampleCriteriaFtlFile(String myBatisExampleCriteriaFtlFile) {
 		this.myBatisExampleCriteriaFtlFile = myBatisExampleCriteriaFtlFile;
 	}
-	
 }

@@ -1,4 +1,4 @@
-package com.cg.codegen.model.vo.generator;
+package com.cg.codegen.component.generator.vo;
 
 import java.util.List;
 

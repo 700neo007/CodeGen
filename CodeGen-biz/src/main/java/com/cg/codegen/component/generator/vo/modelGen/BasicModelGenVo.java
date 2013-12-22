@@ -1,11 +1,11 @@
-package com.cg.codegen.model.vo.generator.modelGen;
+package com.cg.codegen.component.generator.vo.modelGen;
 
 /**
  * 基本实体生成vo
  * @author Neo
  *
  */
-public class BasicModelGeneratorVo extends ModelGeneratorVo {
+public class BasicModelGenVo extends ModelGenVo {
 
 	/**
 	 * 模板文件路径

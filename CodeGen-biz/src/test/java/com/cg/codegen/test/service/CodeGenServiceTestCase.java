@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cg.codegen.component.generator.vo.GeneratorInput;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorInput;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.codegen.test.BaseTestCase;
 import com.cg.common.util.JsonUtil;
@@ -47,7 +47,7 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 		generatorInput.setTableNameLeftTrimPrefix("tbl_dms_");
 		generatorInput.setColumn2PropStrategyClassName("com.cg.codegen.component.generator.nameStrategy.column2Prop.UnderlineColumn2PropStrategy");
 		
-		codeGenService.generateModel(generatorInput);
+		codeGenService.genModel(generatorInput);
 	}
 	
 	/**
@@ -79,7 +79,7 @@ public class CodeGenServiceTestCase extends BaseTestCase {
 		generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
 		generatorInput.setMyBatisMapperOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
 		
-		codeGenService.generateMyBatisMapper(generatorInput);
+		codeGenService.genMyBatisMapper(generatorInput);
 	}
 	
 }

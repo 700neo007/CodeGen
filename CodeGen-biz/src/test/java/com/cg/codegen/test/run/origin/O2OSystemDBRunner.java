@@ -6,8 +6,8 @@ import java.util.List;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cg.codegen.component.generator.vo.GeneratorInput;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorInput;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.codegen.test.BaseTestCase;
 
@@ -17,35 +17,10 @@ public class O2OSystemDBRunner extends BaseTestCase {
 	private CodeGenService codeGenService;
 	
 	@Test
-	public void genConfModelAndMapper() throws Exception {
-		List<String> tableNameList = new ArrayList<String>();
-		tableNameList.add("t_system_ip_info");
-		
-		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
-		
-		GeneratorInput generatorInput = new GeneratorInput();
-		generatorInput.setTableList(tableList);
-		generatorInput.setModelPackage("com.o2o.system.conf.model");
-		generatorInput.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
-		generatorInput.setModelFtlFile("BasicModel.ftl");
-		generatorInput.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
-		generatorInput.setTableNameLeftTrimPrefix("t_system_");
-		
-		generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage().replace("model", "") + "dao");
-		generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
-		generatorInput.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
-		generatorInput.setMyBatisMapperFtlFile("mapper.ftl");
-		generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
-		generatorInput.setMyBatisMapperOutputRoot(generatorInput.getModelOutputRoot());
-		
-		codeGenService.generateModel(generatorInput);
-		codeGenService.generateMyBatisMapper(generatorInput);
-	}
-	
-	@Test
 	public void genUserModelAndMapper() throws Exception {
 		List<String> tableNameList = new ArrayList<String>();
 		tableNameList.add("t_system_user");
+		tableNameList.add("t_system_role");
 		
 		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
 		
@@ -58,14 +33,18 @@ public class O2OSystemDBRunner extends BaseTestCase {
 		generatorInput.setTableNameLeftTrimPrefix("t_system_");
 		
 		generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage().replace("model", "") + "dao");
-		generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
 		generatorInput.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
 		generatorInput.setMyBatisMapperFtlFile("mapper.ftl");
-		generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
 		generatorInput.setMyBatisMapperOutputRoot(generatorInput.getModelOutputRoot());
 		
-		codeGenService.generateModel(generatorInput);
-		codeGenService.generateMyBatisMapper(generatorInput);
+		generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
+		generatorInput.setMyBatisMapperXmlRoot(generatorInput.getMyBatisMapperRoot());
+		generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
+		generatorInput.setMyBatisMapperXmlOutputRoot(generatorInput.getModelOutputRoot());
+		
+		codeGenService.genModel(generatorInput);
+		codeGenService.genMyBatisMapper(generatorInput);
+		codeGenService.genMyBatisMapperXml(generatorInput);
 	}
 	
 }

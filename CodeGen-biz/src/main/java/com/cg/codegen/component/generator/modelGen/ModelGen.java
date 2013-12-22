@@ -10,23 +10,18 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 import com.cg.codegen.component.generator.CodeGenerator;
+import com.cg.codegen.component.generator.vo.modelGen.ModelGenVo;
 import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
 import com.cg.codegen.component.typeHandler.TypeHandler;
 import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.modelGen.ModelGeneratorVo;
 
 /**
  * 实体生成器
  * @author Neo
  *
  */
-public abstract class ModelGenerator extends CodeGenerator {
-	
-	/**
-	 * 生成实体
-	 */
-	public abstract void generateModel();
+public abstract class ModelGen extends CodeGenerator {
 	
 	/**
 	 * 获取模板模型map
@@ -36,7 +31,7 @@ public abstract class ModelGenerator extends CodeGenerator {
 	protected Map<String, Map<String, Object>> getTemplateModelMaps() {
 		Map<String, Map<String, Object>> modelMaps = super.getTemplateModelMaps();
 		
-		ModelGeneratorVo modelGeneratorVo = getGeneratorVoAsSub();
+		ModelGenVo modelGeneratorVo = getGeneratorVoAsSub();
 		List<Table> tableList = modelGeneratorVo.getTableList();
 		
 		for (Table table : tableList) {

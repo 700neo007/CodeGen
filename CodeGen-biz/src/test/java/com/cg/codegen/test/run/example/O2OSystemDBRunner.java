@@ -2,12 +2,14 @@ package com.cg.codegen.test.run.example;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.cg.codegen.component.generator.vo.GeneratorInput;
 import com.cg.codegen.model.vo.Table;
-import com.cg.codegen.model.vo.generator.GeneratorInput;
 import com.cg.codegen.service.CodeGenService;
 import com.cg.codegen.test.BaseTestCase;
 
@@ -18,42 +20,40 @@ public class O2OSystemDBRunner extends BaseTestCase {
 	
 	@Test
 	public void genUserModelAndMapper() throws Exception {
-		List<String> tableNameList = new ArrayList<String>();
-		tableNameList.add("t_system_user");
+		ExampleGenConf conf = new ExampleGenConf();
 		
-		List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
+		Map<String, List<String>> packageTableListMap = conf.getPackageTableListMap();
 		
-		GeneratorInput generatorInput = new GeneratorInput();
-		generatorInput.setTableList(tableList);
-		generatorInput.setModelPackage("com.o2o.system.user.model");
-		generatorInput.setModelFtlRoot(GenConf.modelFtlRoot);
-		generatorInput.setModelFtlFile(GenConf.modelFtlFile);
-		generatorInput.setModelOutputRoot(GenConf.modelOutputRoot);
-		generatorInput.setTableNameLeftTrimPrefix(GenConf.tableNameLeftTrimPrefix);
+		for (Entry<String, List<String>> entry : packageTableListMap.entrySet()) {
+			String packageName = entry.getKey();
+			List<String> tableNameList = entry.getValue(); 
+			
+			List<Table> tableList = codeGenService.getTablesByTableNames(tableNameList.toArray(new String[tableNameList.size()]));
+			
+			GeneratorInput generatorInput = new GeneratorInput();
+			generatorInput.setTableList(tableList);
+			generatorInput.setModelPackage("com.o2o.system.user" + ".model");
+			generatorInput.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
+			generatorInput.setModelFtlFile("BasicModel.ftl");
+			generatorInput.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
+			generatorInput.setTableNameLeftTrimPrefix("t_system_");
+			
+			generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage().replace("model", "") + "dao");
+			generatorInput.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
+			generatorInput.setMyBatisMapperFtlFile("mapper.ftl");
+			generatorInput.setMyBatisMapperOutputRoot(generatorInput.getModelOutputRoot());
+			
+			generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
+			generatorInput.setMyBatisMapperXmlRoot(generatorInput.getMyBatisMapperRoot());
+			generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
+			generatorInput.setMyBatisMapperXmlOutputRoot(generatorInput.getModelOutputRoot());
+			
+			codeGenService.genModel(generatorInput);
+			codeGenService.genMyBatisMapper(generatorInput);
+			codeGenService.genMyBatisMapperXml(generatorInput);
+		}
 		
-		//---------------------------------------------------------------------------
 		
-		generatorInput.setMyBatisMapperGeneratorClassName(GenConf.myBatisMapperGeneratorClassName);
-		generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage().replace("model", "") + "dao");
-		generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
-		generatorInput.setMyBatisMapperRoot(GenConf.myBatisMapperRoot);
-		generatorInput.setMyBatisMapperFtlFile(GenConf.myBatisMapperFtlFile);
-		generatorInput.setMyBatisMapperXmlFtlFile(GenConf.myBatisMapperXmlFtlFile);
-		generatorInput.setMyBatisMapperOutputRoot(generatorInput.getModelOutputRoot());
-		
-		//-------------------------
-		
-		generatorInput.setMyBatisExampleBaseMapperPackage(GenConf.myBatisExampleBaseMapperPackage);
-		generatorInput.setMyBatisExampleBaseMapperName(GenConf.myBatisExampleBaseMapperName);
-		generatorInput.setMyBatisExampleBaseCriteriaPackage(GenConf.myBatisExampleBaseCriteriaPackage);
-		generatorInput.setMyBatisExampleBaseCriteriaName(GenConf.myBatisExampleBaseCriteriaName);
-		generatorInput.setMyBatisExampleCriteriaPackage(generatorInput.getMyBatisMapperPackage() + ".criteria");
-		generatorInput.setMyBatisExampleCriteriaFtlFile(GenConf.myBatisExampleCriteriaFtlFile);
-		
-		//---------------------------------------------------------------------------
-		
-		codeGenService.generateModel(generatorInput);
-		codeGenService.generateMyBatisMapper(generatorInput);
 	}
 	
 }
