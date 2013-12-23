@@ -24,6 +24,8 @@ import com.cg.common.util.JsonUtil;
  */
 public class MyBatisMapperGen extends CodeGenerator {
 	
+	protected MyBatisMapperGen() {}
+	
 	public MyBatisMapperGen(GeneratorInput generatorInput) {
 		MyBatisMapperGenVo myBatisMapperGenVo = new MyBatisMapperGenVo();
 		try {
@@ -57,21 +59,7 @@ public class MyBatisMapperGen extends CodeGenerator {
 	}
 
 	/**
-	 * 建造ModelMap
-	 */
-	@Override
-	public void buildModelMap() {
-		iterateBuildPart(new IterateBuildPartCallBack<MyBatisMapperGenVo>() {
-			@Override
-			public void buildSinglePart(String tableName, GenerateInfo generateInfo, MyBatisMapperGenVo generatorVo) {
-				Map<String, Object> modelMap = MyBatisMapperGen.this.getTemplateModelMaps().get(tableName);
-				generateInfo.setModelMap(modelMap);
-			}
-		});
-	}
-
-	/**
-	 * 建造ModelMap
+	 * 建造模板根路径
 	 */
 	@Override
 	public void buildFtlRoot() {
@@ -84,7 +72,7 @@ public class MyBatisMapperGen extends CodeGenerator {
 	}
 
 	/**
-	 * 建造ModelMap
+	 * 建造模板文件名称
 	 */
 	@Override
 	public void buildFtlFile() {
@@ -97,7 +85,7 @@ public class MyBatisMapperGen extends CodeGenerator {
 	}
 
 	/**
-	 * 建造ModelMap
+	 * 建造生成的文件的基路径
 	 */
 	@Override
 	public void buildTargetRoot() {

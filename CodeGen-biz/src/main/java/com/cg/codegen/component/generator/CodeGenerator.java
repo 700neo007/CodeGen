@@ -1,5 +1,6 @@
 package com.cg.codegen.component.generator;
 
+import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +22,9 @@ import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
 import com.cg.codegen.model.vo.Table;
 import com.cg.common.constant.CommonConstant;
 import com.cg.common.util.FreeMarkerUtil;
+import com.cg.common.util.FreeMarkerUtil.GenerateInfo;
 import com.cg.common.util.JsonUtil;
+import com.cg.common.util.ReflectionUtil;
 
 /**
  * 代码生成器
@@ -183,7 +186,26 @@ public abstract class CodeGenerator {
 	/**
 	 * 建造ModelMap
 	 */
-	public abstract void buildModelMap();
+	@SuppressWarnings({ "unchecked", "unused" })
+	public <VoType extends BaseGeneratorVo, GenType extends CodeGenerator> void buildModelMap() {
+		final Class<GenType> genTypeClz = (Class<GenType>) getClass();
+		logger.info("buildModelMap#-> genTypeClz:{}", genTypeClz.getName());
+		final Class<VoType> voTypeClz = (Class<VoType>) generatorVo.getClass();
+		iterateBuildPart(new IterateBuildPartCallBack<VoType>() {
+			@Override
+			public void buildSinglePart(String tableName, GenerateInfo generateInfo, VoType generatorVo) {
+				try {
+					Method method = ReflectionUtil.getDeclareMethod(genTypeClz.cast(CodeGenerator.this), "getTemplateModelMaps");
+					Map<String, Map<String, Object>> modelMaps = 
+							(Map<String, Map<String, Object>>) method.invoke(genTypeClz.cast(CodeGenerator.this));
+					Map<String, Object> modelMap = modelMaps.get(tableName);
+					generateInfo.setModelMap(modelMap);
+				} catch (Exception e) {
+					logger.error(e.getMessage(), e);
+				}
+			}
+		});
+	}
 	/**
 	 * 建造模板根路径
 	 */

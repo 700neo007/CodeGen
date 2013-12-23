@@ -2,7 +2,6 @@ package com.cg.codegen.component.generator.modelGen;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.io.FileUtils;
@@ -34,20 +33,6 @@ public class BasicModelGen extends ModelGen {
 		}
 		logger.info("BasicModelGenerator#-> basicModelGeneratorVo:" + JsonUtil.toJson(basicModelGeneratorVo));
 		setGeneratorVo(basicModelGeneratorVo);
-	}
-	
-	/**
-	 * 建造ModelMap
-	 */
-	@Override
-	public void buildModelMap() {
-		iterateBuildPart(new IterateBuildPartCallBack<BasicModelGenVo>() {
-			@Override
-			public void buildSinglePart(String tableName, GenerateInfo generateInfo, BasicModelGenVo generatorVo) {
-				Map<String, Object> modelMap = BasicModelGen.this.getTemplateModelMaps().get(tableName);
-				generateInfo.setModelMap(modelMap);
-			}
-		});
 	}
 
 	/**

@@ -98,33 +98,36 @@ public class GeneratorInput {
 	private String myBatisMapperXmlOutputRoot;
 	//--------------------- 生成MyBatis Mapper XML(Start) ---------------------------
 	
-	//--- 生成MyBatis Example 的配置(Start) ---
+	//--------------------- 生成MyBatis Criteria(Start) ---------------------------
 	/**
-	 * MyBatis Example BaseMapper的包名
+	 * MyBatis Criteria 生成器类名
 	 */
-	private String myBatisExampleBaseMapperPackage;
+	private String myBatisCriteriaGeneratorClassName;
 	/**
-	 * MyBatis Example BaseMapper的名称
+	 * MyBatis Criteria基类的包名
 	 */
-	private String myBatisExampleBaseMapperName;
+	private String myBatisBaseCriteriaPackage;
 	/**
-	 * MyBatis Example Criteria基类的包名
+	 * MyBatis Criteria基类的名称
 	 */
-	private String myBatisExampleBaseCriteriaPackage;
+	private String myBatisBaseCriteriaName;
 	/**
-	 * MyBatis Example Criteria基类的名称
+	 * MyBatis Criteria包名
 	 */
-	private String myBatisExampleBaseCriteriaName;
+	private String myBatisCriteriaPackage;
 	/**
-	 * MyBatis Example Criteria包名
+	 * MyBatis Criteria模板基路径
 	 */
-	private String myBatisExampleCriteriaPackage;
+	private String myBatisCriteriaRoot;
 	/**
-	 * MyBatis Example Criteria模板
+	 * MyBatis Criteria模板
 	 */
-	private String myBatisExampleCriteriaFtlFile;
-	//--- 生成MyBatis Example 的配置(End) ---
-	
+	private String myBatisCriteriaFtlFile;
+	/**
+	 * MyBatis Criteria输出基路径
+	 */
+	private String myBatisCriteriaOutputRoot;
+	//--------------------- 生成MyBatis Criteria(End) ---------------------------
 	
 	public List<Table> getTableList() {
 		return tableList;
@@ -240,40 +243,49 @@ public class GeneratorInput {
 	public void setMyBatisMapperXmlOutputRoot(String myBatisMapperXmlOutputRoot) {
 		this.myBatisMapperXmlOutputRoot = myBatisMapperXmlOutputRoot;
 	}
-	public String getMyBatisExampleBaseMapperPackage() {
-		return myBatisExampleBaseMapperPackage;
+	public String getMyBatisCriteriaGeneratorClassName() {
+		return myBatisCriteriaGeneratorClassName;
 	}
-	public void setMyBatisExampleBaseMapperPackage(String myBatisExampleBaseMapperPackage) {
-		this.myBatisExampleBaseMapperPackage = myBatisExampleBaseMapperPackage;
+	public void setMyBatisCriteriaGeneratorClassName(String myBatisCriteriaGeneratorClassName) {
+		this.myBatisCriteriaGeneratorClassName = myBatisCriteriaGeneratorClassName;
 	}
-	public String getMyBatisExampleBaseMapperName() {
-		return myBatisExampleBaseMapperName;
+	public String getMyBatisBaseCriteriaPackage() {
+		return myBatisBaseCriteriaPackage;
 	}
-	public void setMyBatisExampleBaseMapperName(String myBatisExampleBaseMapperName) {
-		this.myBatisExampleBaseMapperName = myBatisExampleBaseMapperName;
+	public void setMyBatisBaseCriteriaPackage(String myBatisBaseCriteriaPackage) {
+		this.myBatisBaseCriteriaPackage = myBatisBaseCriteriaPackage;
 	}
-	public String getMyBatisExampleBaseCriteriaPackage() {
-		return myBatisExampleBaseCriteriaPackage;
+	public String getMyBatisBaseCriteriaName() {
+		return myBatisBaseCriteriaName;
 	}
-	public void setMyBatisExampleBaseCriteriaPackage(String myBatisExampleBaseCriteriaPackage) {
-		this.myBatisExampleBaseCriteriaPackage = myBatisExampleBaseCriteriaPackage;
+	public void setMyBatisBaseCriteriaName(String myBatisBaseCriteriaName) {
+		this.myBatisBaseCriteriaName = myBatisBaseCriteriaName;
 	}
-	public String getMyBatisExampleBaseCriteriaName() {
-		return myBatisExampleBaseCriteriaName;
+	public String getMyBatisCriteriaPackage() {
+		return myBatisCriteriaPackage;
 	}
-	public void setMyBatisExampleBaseCriteriaName(String myBatisExampleBaseCriteriaName) {
-		this.myBatisExampleBaseCriteriaName = myBatisExampleBaseCriteriaName;
+	public void setMyBatisCriteriaPackage(String myBatisCriteriaPackage) {
+		this.myBatisCriteriaPackage = myBatisCriteriaPackage;
 	}
-	public String getMyBatisExampleCriteriaPackage() {
-		return myBatisExampleCriteriaPackage;
+	public String getMyBatisCriteriaRoot() {
+		return myBatisCriteriaRoot;
 	}
-	public void setMyBatisExampleCriteriaPackage(String myBatisExampleCriteriaPackage) {
-		this.myBatisExampleCriteriaPackage = myBatisExampleCriteriaPackage;
+	public void setMyBatisCriteriaRoot(String myBatisCriteriaRoot) {
+		this.myBatisCriteriaRoot = myBatisCriteriaRoot;
 	}
-	public String getMyBatisExampleCriteriaFtlFile() {
-		return myBatisExampleCriteriaFtlFile;
+	public String getMyBatisCriteriaFtlFile() {
+		return myBatisCriteriaFtlFile;
 	}
-	public void setMyBatisExampleCriteriaFtlFile(String myBatisExampleCriteriaFtlFile) {
-		this.myBatisExampleCriteriaFtlFile = myBatisExampleCriteriaFtlFile;
+	public void setMyBatisCriteriaFtlFile(String myBatisCriteriaFtlFile) {
+		this.myBatisCriteriaFtlFile = myBatisCriteriaFtlFile;
 	}
+	public String getMyBatisCriteriaOutputRoot() {
+		return myBatisCriteriaOutputRoot;
+	}
+	public void setMyBatisCriteriaOutputRoot(String myBatisCriteriaOutputRoot) {
+		this.myBatisCriteriaOutputRoot = myBatisCriteriaOutputRoot;
+	}
+	
+	
+	
 }

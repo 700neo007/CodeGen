@@ -1,6 +1,5 @@
 package com.cg.codegen.test.run.example;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -19,7 +18,7 @@ public class O2OSystemDBRunner extends BaseTestCase {
 	private CodeGenService codeGenService;
 	
 	@Test
-	public void genUserModelAndMapper() throws Exception {
+	public void gen() throws Exception {
 		ExampleGenConf conf = new ExampleGenConf();
 		
 		Map<String, List<String>> packageTableListMap = conf.getPackageTableListMap();
@@ -32,20 +31,21 @@ public class O2OSystemDBRunner extends BaseTestCase {
 			
 			GeneratorInput generatorInput = new GeneratorInput();
 			generatorInput.setTableList(tableList);
-			generatorInput.setModelPackage("com.o2o.system.user" + ".model");
-			generatorInput.setModelFtlRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\");
-			generatorInput.setModelFtlFile("BasicModel.ftl");
-			generatorInput.setModelOutputRoot("D:\\DeskTmp\\FreemarkerTest\\src");
-			generatorInput.setTableNameLeftTrimPrefix("t_system_");
+			generatorInput.setModelPackage(packageName + ".model");
+			generatorInput.setModelFtlRoot(conf.getModelFtlRoot());
+			generatorInput.setModelFtlFile(conf.getModelFtlFile());
+			generatorInput.setModelOutputRoot(conf.getModelOutputRoot());
+			generatorInput.setTableNameLeftTrimPrefix(conf.getTableNameLeftTrimPrefix());
 			
+//			generatorInput.setMyBatisMapperGeneratorClassName(conf.getMyBatisMapperGeneratorClassName());
 			generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage().replace("model", "") + "dao");
-			generatorInput.setMyBatisMapperRoot("D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql");
-			generatorInput.setMyBatisMapperFtlFile("mapper.ftl");
+			generatorInput.setMyBatisMapperRoot(conf.getMyBatisMapperRoot());
+			generatorInput.setMyBatisMapperFtlFile(conf.getMyBatisMapperFtlFile());
 			generatorInput.setMyBatisMapperOutputRoot(generatorInput.getModelOutputRoot());
 			
 			generatorInput.setMyBatisMapperXmlPackage(generatorInput.getMyBatisMapperPackage() + ".mapper");
 			generatorInput.setMyBatisMapperXmlRoot(generatorInput.getMyBatisMapperRoot());
-			generatorInput.setMyBatisMapperXmlFtlFile("mapperXml.ftl");
+			generatorInput.setMyBatisMapperXmlFtlFile(conf.getMyBatisMapperXmlFtlFile());
 			generatorInput.setMyBatisMapperXmlOutputRoot(generatorInput.getModelOutputRoot());
 			
 			codeGenService.genModel(generatorInput);

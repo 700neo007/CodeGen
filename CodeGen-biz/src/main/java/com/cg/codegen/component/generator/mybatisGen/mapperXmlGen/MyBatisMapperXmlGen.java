@@ -60,20 +60,6 @@ public class MyBatisMapperXmlGen extends CodeGenerator {
 		
 		return modelMaps;
 	}
-	
-	/**
-	 * 建造ModelMap
-	 */
-	@Override
-	public void buildModelMap() {
-		iterateBuildPart(new IterateBuildPartCallBack<MyBatisMapperXmlGenVo>() {
-			@Override
-			public void buildSinglePart(String tableName, GenerateInfo generateInfo, MyBatisMapperXmlGenVo generatorVo) {
-				Map<String, Object> modelMap = MyBatisMapperXmlGen.this.getTemplateModelMaps().get(tableName);
-				generateInfo.setModelMap(modelMap);
-			}
-		});
-	}
 
 	/**
 	 * 建造模板根路径

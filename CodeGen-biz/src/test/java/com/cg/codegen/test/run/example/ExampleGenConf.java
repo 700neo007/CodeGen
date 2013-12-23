@@ -16,7 +16,38 @@ public class ExampleGenConf {
 	 * Map<包名, 表名List>
 	 */
 	private Map<String, List<String>> packageTableListMap;
-	
+	/**
+	 * 实体模板基路径
+	 */
+	private String modelFtlRoot = "D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\model\\basic\\";
+	/**
+	 * 实体模板路径
+	 */
+	private String modelFtlFile = "BasicModel.ftl";
+	/**
+	 * 实体输出根路径
+	 */
+	private String modelOutputRoot = "D:\\DeskTmp\\FreemarkerTest\\src";
+	/**
+	 * 表名待去除的前缀
+	 */
+	private String tableNameLeftTrimPrefix = "t_system_";
+	/**
+	 * MyBatis Mapper 生成器类名
+	 */
+	private String myBatisMapperGeneratorClassName = "com.cg.codegen.component.generator.mybatisGen.mapperGen.MyBatisMapperGenExtendBase";
+	/**
+	 * MyBatis Mapper 模板基路径
+	 */
+	private String myBatisMapperRoot = "D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql";
+	/**
+	 * MyBatis Mapper 模板
+	 */
+	private String myBatisMapperFtlFile = "mapper.ftl";
+	/**
+	 * MyBatis Mapper XML 模板
+	 */
+	private String myBatisMapperXmlFtlFile = "mapperXml.ftl";
 	
 	
 	public ExampleGenConf() {
@@ -32,8 +63,8 @@ public class ExampleGenConf {
 		packageTableListMap.put("com.o2o.system.user", userPkgTblList);
 		
 		List<String> menuPkgTblList = new ArrayList<String>();
-		menuPkgTblList.add("t_system_menu");
-		packageTableListMap.put("com.o2o.system.menu", menuPkgTblList);
+		menuPkgTblList.add("t_system_resource");
+		packageTableListMap.put("com.o2o.system.res", menuPkgTblList);
 		
 		List<String> confPkgTblList = new ArrayList<String>();
 		confPkgTblList.add("t_system_config");
@@ -44,6 +75,37 @@ public class ExampleGenConf {
 	public Map<String, List<String>> getPackageTableListMap() {
 		return packageTableListMap;
 	}
-	
+
+	public String getModelFtlRoot() {
+		return modelFtlRoot;
+	}
+
+	public String getModelFtlFile() {
+		return modelFtlFile;
+	}
+
+	public String getModelOutputRoot() {
+		return modelOutputRoot;
+	}
+
+	public String getTableNameLeftTrimPrefix() {
+		return tableNameLeftTrimPrefix;
+	}
+
+	public String getMyBatisMapperGeneratorClassName() {
+		return myBatisMapperGeneratorClassName;
+	}
+
+	public String getMyBatisMapperRoot() {
+		return myBatisMapperRoot;
+	}
+
+	public String getMyBatisMapperFtlFile() {
+		return myBatisMapperFtlFile;
+	}
+
+	public String getMyBatisMapperXmlFtlFile() {
+		return myBatisMapperXmlFtlFile;
+	}
 	
 }
