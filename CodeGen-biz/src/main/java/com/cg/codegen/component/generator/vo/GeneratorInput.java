@@ -97,12 +97,23 @@ public class GeneratorInput {
 	 */
 	private String myBatisMapperXmlOutputRoot;
 	//--------------------- 生成MyBatis Mapper XML(Start) ---------------------------
+
+	//--------------------- BaseMapper(Start) ---------------------------
+	/**
+	 * MyBatis Base Mapper包名
+	 */
+	private String myBatisBaseMapperPackage;
+	/**
+	 * MyBatis Base Mapper类名
+	 */
+	private String myBatisBaseMapperName;
+	//--------------------- BaseMapper(End) ---------------------------
 	
 	//--------------------- 生成MyBatis Criteria(Start) ---------------------------
 	/**
 	 * MyBatis Criteria 生成器类名
 	 */
-	private String myBatisCriteriaGeneratorClassName;
+	private String myBatisCriteriaGeneratorClassName = "com.cg.codegen.component.generator.mybatisGen.criteriaGen.MyBatisCriteriaGen";
 	/**
 	 * MyBatis Criteria基类的包名
 	 */
@@ -128,6 +139,7 @@ public class GeneratorInput {
 	 */
 	private String myBatisCriteriaOutputRoot;
 	//--------------------- 生成MyBatis Criteria(End) ---------------------------
+	
 	
 	public List<Table> getTableList() {
 		return tableList;
@@ -243,6 +255,18 @@ public class GeneratorInput {
 	public void setMyBatisMapperXmlOutputRoot(String myBatisMapperXmlOutputRoot) {
 		this.myBatisMapperXmlOutputRoot = myBatisMapperXmlOutputRoot;
 	}
+	public String getMyBatisBaseMapperPackage() {
+		return myBatisBaseMapperPackage;
+	}
+	public void setMyBatisBaseMapperPackage(String myBatisBaseMapperPackage) {
+		this.myBatisBaseMapperPackage = myBatisBaseMapperPackage;
+	}
+	public String getMyBatisBaseMapperName() {
+		return myBatisBaseMapperName;
+	}
+	public void setMyBatisBaseMapperName(String myBatisBaseMapperName) {
+		this.myBatisBaseMapperName = myBatisBaseMapperName;
+	}
 	public String getMyBatisCriteriaGeneratorClassName() {
 		return myBatisCriteriaGeneratorClassName;
 	}
@@ -285,6 +309,8 @@ public class GeneratorInput {
 	public void setMyBatisCriteriaOutputRoot(String myBatisCriteriaOutputRoot) {
 		this.myBatisCriteriaOutputRoot = myBatisCriteriaOutputRoot;
 	}
+	
+	
 	
 	
 	

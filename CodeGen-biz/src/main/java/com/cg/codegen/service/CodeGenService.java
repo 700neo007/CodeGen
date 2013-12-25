@@ -52,4 +52,11 @@ public interface CodeGenService {
 	 */
 	public void genMyBatisMapperXml(GeneratorInput generatorInput) throws Exception;
 	
+	/**
+	 * 生成MyBatis Criteria 
+	 * @param generatorInput 生成器输入参数
+	 * @throws Exception
+	 */
+	public void genMyBatisCriteria(GeneratorInput generatorInput) throws Exception;
+	
 }

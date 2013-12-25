@@ -1,10 +1,8 @@
 package com.cg.codegen.component.generator.modelGen;
 
 import java.io.File;
-import java.io.IOException;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.io.FileUtils;
 
 import com.cg.codegen.component.generator.GeneratorUtil;
 import com.cg.codegen.component.generator.vo.GeneratorInput;
@@ -66,20 +64,11 @@ public class BasicModelGen extends ModelGen {
 	 */
 	@Override
 	public void buildTargetRoot() {
-		iterateBuildPart(new IterateBuildPartCallBack<BasicModelGenVo>() {
-			@Override
-			public void buildSinglePart(String tableName, GenerateInfo generateInfo, BasicModelGenVo generatorVo) {
-				String targetRoot = String.format("%s%s%s", 
-						generatorVo.getModelOutputRoot(), File.separator,
-						GeneratorUtil.getPathByPackage(generatorVo.getModelPackage()));
-				generateInfo.setTargetRoot(targetRoot);
-				try {
-					FileUtils.forceMkdir(new File(targetRoot));
-				} catch (IOException e) {
-					logger.error(e.getMessage(), e);
-				}
-			}
-		});
+		BasicModelGenVo basicModelGenVo = getGeneratorVoAsSub();
+		String targetRoot = String.format("%s%s%s", 
+				basicModelGenVo.getModelOutputRoot(), File.separator,
+				GeneratorUtil.getPathByPackage(basicModelGenVo.getModelPackage())); 
+		setAndCreateTargetRoot(targetRoot);
 	}
 
 	/**

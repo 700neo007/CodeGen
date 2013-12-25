@@ -11,6 +11,8 @@ import org.springframework.stereotype.Service;
 
 import com.cg.codegen.component.generator.modelGen.ModelGen;
 import com.cg.codegen.component.generator.modelGen.ModelGenFactory;
+import com.cg.codegen.component.generator.mybatisGen.criteriaGen.MyBatisCriteriaGen;
+import com.cg.codegen.component.generator.mybatisGen.criteriaGen.MyBatisCriteriaGenFactory;
 import com.cg.codegen.component.generator.mybatisGen.mapperGen.MyBatisMapperGen;
 import com.cg.codegen.component.generator.mybatisGen.mapperGen.MyBatisMapperGenFactory;
 import com.cg.codegen.component.generator.mybatisGen.mapperXmlGen.MyBatisMapperXmlGen;
@@ -143,6 +145,16 @@ public class CodeGenServiceImpl extends BaseService implements CodeGenService {
 	public void genMyBatisMapperXml(GeneratorInput generatorInput) throws Exception {
 		MyBatisMapperXmlGen myBatisMapperXmlGen = MyBatisMapperXmlGenFactory.createMyBatisMapperXmlGenerator(generatorInput);
 		myBatisMapperXmlGen.generate();
+	}
+	
+	/**
+	 * 生成MyBatis Criteria 
+	 * @param generatorInput 生成器输入参数
+	 * @throws Exception
+	 */
+	public void genMyBatisCriteria(GeneratorInput generatorInput) throws Exception {
+		MyBatisCriteriaGen  myBatisCriteriaGen = MyBatisCriteriaGenFactory.createMyBatisCriteriaGenerator(generatorInput);
+		myBatisCriteriaGen.generate();
 	}
 	
 }

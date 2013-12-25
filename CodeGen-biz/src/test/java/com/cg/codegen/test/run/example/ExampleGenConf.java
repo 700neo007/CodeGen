@@ -16,6 +16,9 @@ public class ExampleGenConf {
 	 * Map<包名, 表名List>
 	 */
 	private Map<String, List<String>> packageTableListMap;
+	
+	//--------------------------------------------------------------
+	
 	/**
 	 * 实体模板基路径
 	 */
@@ -32,6 +35,9 @@ public class ExampleGenConf {
 	 * 表名待去除的前缀
 	 */
 	private String tableNameLeftTrimPrefix = "t_system_";
+	
+	//--------------------------------------------------------------
+	
 	/**
 	 * MyBatis Mapper 生成器类名
 	 */
@@ -39,7 +45,7 @@ public class ExampleGenConf {
 	/**
 	 * MyBatis Mapper 模板基路径
 	 */
-	private String myBatisMapperRoot = "D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql";
+	private String myBatisMapperRoot = "D:\\SoftDev\\WorkPlaces\\space43\\CodeGen\\generate\\ftl\\myBatisMapper\\mysql\\example";
 	/**
 	 * MyBatis Mapper 模板
 	 */
@@ -49,6 +55,32 @@ public class ExampleGenConf {
 	 */
 	private String myBatisMapperXmlFtlFile = "mapperXml.ftl";
 	
+	//--------------------------------------------------------------
+	
+	/**
+	 * MyBatis Base Mapper包名
+	 */
+	private String myBatisBaseMapperPackage = "com.o2o.common.mybatis";
+	/**
+	 * MyBatis Base Mapper类名
+	 */
+	private String myBatisBaseMapperName = "BaseMapper";
+	
+	//--------------------------------------------------------------
+	
+	/**
+	 * MyBatis Criteria基类的包名
+	 */
+	private String myBatisBaseCriteriaPackage = "com.o2o.common.mybatis";
+	/**
+	 * MyBatis Criteria基类的名称
+	 */
+	private String myBatisBaseCriteriaName = "BaseCriteria";
+	/**
+	 * MyBatis Criteria模板
+	 */
+	private String myBatisCriteriaFtlFile = "criteria.ftl";
+	//--------------------------------------------------------------
 	
 	public ExampleGenConf() {
 		initPackageTableListMap();
@@ -62,14 +94,14 @@ public class ExampleGenConf {
 		userPkgTblList.add("t_system_role");
 		packageTableListMap.put("com.o2o.system.user", userPkgTblList);
 		
-		List<String> menuPkgTblList = new ArrayList<String>();
-		menuPkgTblList.add("t_system_resource");
-		packageTableListMap.put("com.o2o.system.res", menuPkgTblList);
-		
-		List<String> confPkgTblList = new ArrayList<String>();
-		confPkgTblList.add("t_system_config");
-		confPkgTblList.add("t_system_ip_info");
-		packageTableListMap.put("com.o2o.system.conf", confPkgTblList);
+//		List<String> menuPkgTblList = new ArrayList<String>();
+//		menuPkgTblList.add("t_system_resource");
+//		packageTableListMap.put("com.o2o.system.res", menuPkgTblList);
+//		
+//		List<String> confPkgTblList = new ArrayList<String>();
+//		confPkgTblList.add("t_system_config");
+//		confPkgTblList.add("t_system_ip_info");
+//		packageTableListMap.put("com.o2o.system.conf", confPkgTblList);
 	}
 
 	public Map<String, List<String>> getPackageTableListMap() {
@@ -107,5 +139,25 @@ public class ExampleGenConf {
 	public String getMyBatisMapperXmlFtlFile() {
 		return myBatisMapperXmlFtlFile;
 	}
-	
+
+	public String getMyBatisBaseMapperPackage() {
+		return myBatisBaseMapperPackage;
+	}
+
+	public String getMyBatisBaseMapperName() {
+		return myBatisBaseMapperName;
+	}
+
+	public String getMyBatisBaseCriteriaPackage() {
+		return myBatisBaseCriteriaPackage;
+	}
+
+	public String getMyBatisBaseCriteriaName() {
+		return myBatisBaseCriteriaName;
+	}
+
+	public String getMyBatisCriteriaFtlFile() {
+		return myBatisCriteriaFtlFile;
+	}
+
 }

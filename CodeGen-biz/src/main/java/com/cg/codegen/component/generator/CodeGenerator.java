@@ -1,12 +1,18 @@
 package com.cg.codegen.component.generator;
 
+import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
+import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,6 +25,8 @@ import com.cg.codegen.component.generator.nameStrategy.table2Model.Table2ModelSt
 import com.cg.codegen.component.generator.nameStrategy.table2Model.Table2ModelStrategyFactory;
 import com.cg.codegen.component.generator.vo.BaseGeneratorVo;
 import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
+import com.cg.codegen.component.typeHandler.TypeHandler;
+import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
 import com.cg.common.constant.CommonConstant;
 import com.cg.common.util.FreeMarkerUtil;
@@ -56,15 +64,21 @@ public abstract class CodeGenerator {
 
 	public static final String MODEL_MAP_KEY_VERSION_ID = "versionId";
 	
+	public static final String MODEL_MAP_KEY_MYBATIS_BASE_MAPPER_PACKAGE = "myBatisBaseMapperPackage";
+
+	public static final String MODEL_MAP_KEY_MYBATIS_BASE_MAPPER_NAME = "myBatisBaseMapperName";
+	
 	public static final String MODEL_MAP_KEY_MYBATIS_MAPPER_PACKAGE = "myBatisMapperPackage";
 	
 	public static final String MODEL_MAP_KEY_MYBATIS_MAPPER_XML_PACKAGE = "myBatisMapperXmlPackage";
 
 	public static final String MODEL_MAP_KEY_SQL_TPYE_MYBATIS_JDBC_TYPE_MAP = "SQL_TPYE_MYBATIS_JDBC_TYPE_MAP";
-
-	public static final String MODEL_MAP_KEY_BASE_MAPPER_PACKAGE = "myBatisExampleBaseMapperPackage";
-
-	public static final String MODEL_MAP_KEY_BASE_MAPPER_NAME = "myBatisExampleBaseMapperName";
+	
+	public static final String MODEL_MAP_KEY_MYBATIS_BASE_CRITERIA_PACKAGE = "myBatisBaseCriteriaPackage";
+	
+	public static final String MODEL_MAP_KEY_MYBATIS_BASE_CRITERIA_NAME = "myBatisBaseCriteriaName";
+	
+	public static final String MODEL_MAP_KEY_MYBATIS_CRITERIA_PACKAGE = "myBatisCriteriaPackage";
 	
 	// -----------------------------------------
 	
@@ -96,6 +110,30 @@ public abstract class CodeGenerator {
 		}
 		logger.info("generateInfoList:{}", JsonUtil.toJson(generateInfoList));
 		FreeMarkerUtil.generateFiles(generateInfoList);
+	}
+	
+	/**
+	 * 获取import列表
+	 * @param sqlTypeJavaTypeMap
+	 * @return
+	 */
+	protected List<String> getImportList(Table table, Map<String, String> sqlTypeJavaTypeMap) {
+		Set<String> pkgSet = new HashSet<String>();
+		List<Column> columnList = table.getColumnList();
+		String sqlType = null;
+		String javaType = null;
+		String packageName = null;
+		for (Column column : columnList) {
+			sqlType = column.getType();
+			javaType = sqlTypeJavaTypeMap.get(sqlType);
+			packageName = TypeHandler.JAVA_TYPE_PACKAGE_MAP.get(javaType);
+			if (StringUtils.isNotEmpty(packageName)) {
+				pkgSet.add(packageName);
+			}
+		}
+		List<String> pkgList = new ArrayList<String>();
+		pkgList.addAll(pkgSet);
+		return pkgList;
 	}
 	
 	/**
@@ -169,6 +207,27 @@ public abstract class CodeGenerator {
 	protected Column2PropStrategy getColumn2PropStrategy() {
 		return Column2PropStrategyFactory.createColumn2PropStrategy(
 				generatorVo.getColumn2PropStrategyClassName());
+	}
+	
+	/**
+	 * 设置并新建 生成的文件的基路径
+	 * @param targetRoot 
+	 */
+	@SuppressWarnings({ "unchecked", "unused" })
+	protected <VoType extends BaseGeneratorVo> void setAndCreateTargetRoot(final String targetRoot) {
+		final Class<VoType> voTypeClz = (Class<VoType>) generatorVo.getClass();
+		iterateBuildPart(new IterateBuildPartCallBack<VoType>() {
+			@Override
+			public void buildSinglePart(String tableName, GenerateInfo generateInfo, VoType generatorVo) {
+				Assert.isTrue(StringUtils.isNotEmpty(targetRoot), "targetRoot could not be empty");
+				generateInfo.setTargetRoot(targetRoot);
+				try {
+					FileUtils.forceMkdir(new File(targetRoot));
+				} catch (IOException e) {
+					logger.error(e.getMessage(), e);
+				}
+			}
+		});
 	}
 	
 	// ---------------建造者模式：步骤(Start)--------------------------

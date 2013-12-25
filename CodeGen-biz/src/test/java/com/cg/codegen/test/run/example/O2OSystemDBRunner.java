@@ -37,7 +37,7 @@ public class O2OSystemDBRunner extends BaseTestCase {
 			generatorInput.setModelOutputRoot(conf.getModelOutputRoot());
 			generatorInput.setTableNameLeftTrimPrefix(conf.getTableNameLeftTrimPrefix());
 			
-//			generatorInput.setMyBatisMapperGeneratorClassName(conf.getMyBatisMapperGeneratorClassName());
+			generatorInput.setMyBatisMapperGeneratorClassName(conf.getMyBatisMapperGeneratorClassName());
 			generatorInput.setMyBatisMapperPackage(generatorInput.getModelPackage().replace("model", "") + "dao");
 			generatorInput.setMyBatisMapperRoot(conf.getMyBatisMapperRoot());
 			generatorInput.setMyBatisMapperFtlFile(conf.getMyBatisMapperFtlFile());
@@ -48,9 +48,20 @@ public class O2OSystemDBRunner extends BaseTestCase {
 			generatorInput.setMyBatisMapperXmlFtlFile(conf.getMyBatisMapperXmlFtlFile());
 			generatorInput.setMyBatisMapperXmlOutputRoot(generatorInput.getModelOutputRoot());
 			
+			generatorInput.setMyBatisBaseMapperPackage(conf.getMyBatisBaseMapperPackage());
+			generatorInput.setMyBatisBaseMapperName(conf.getMyBatisBaseMapperName());
+			
+			generatorInput.setMyBatisBaseCriteriaPackage(conf.getMyBatisBaseCriteriaPackage());
+			generatorInput.setMyBatisBaseCriteriaName(conf.getMyBatisBaseCriteriaName());
+			generatorInput.setMyBatisCriteriaPackage(generatorInput.getMyBatisMapperPackage() + ".criteria");
+			generatorInput.setMyBatisCriteriaRoot(generatorInput.getMyBatisMapperRoot());
+			generatorInput.setMyBatisCriteriaFtlFile(conf.getMyBatisCriteriaFtlFile());
+			generatorInput.setMyBatisCriteriaOutputRoot(generatorInput.getModelOutputRoot());
+			
 			codeGenService.genModel(generatorInput);
 			codeGenService.genMyBatisMapper(generatorInput);
 			codeGenService.genMyBatisMapperXml(generatorInput);
+			codeGenService.genMyBatisCriteria(generatorInput);
 		}
 		
 		

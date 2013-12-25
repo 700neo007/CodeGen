@@ -1,12 +1,10 @@
 package com.cg.codegen.component.generator.mybatisGen.mapperGen;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.io.FileUtils;
 import org.springframework.util.Assert;
 
 import com.cg.codegen.component.generator.CodeGenerator;
@@ -89,20 +87,11 @@ public class MyBatisMapperGen extends CodeGenerator {
 	 */
 	@Override
 	public void buildTargetRoot() {
-		iterateBuildPart(new IterateBuildPartCallBack<MyBatisMapperGenVo>() {
-			@Override
-			public void buildSinglePart(String tableName, GenerateInfo generateInfo, MyBatisMapperGenVo generatorVo) {
-				String targetRoot = String.format("%s%s%s", 
-						generatorVo.getMyBatisMapperOutputRoot(), File.separator,
-						GeneratorUtil.getPathByPackage(generatorVo.getMyBatisMapperPackage()));
-				generateInfo.setTargetRoot(targetRoot);
-				try {
-					FileUtils.forceMkdir(new File(targetRoot));
-				} catch (IOException e) {
-					logger.error(e.getMessage(), e);
-				}
-			}
-		});
+		MyBatisMapperGenVo myBatisMapperGenVo = getGeneratorVoAsSub();
+		String targetRoot = String.format("%s%s%s", 
+				myBatisMapperGenVo.getMyBatisMapperOutputRoot(), File.separator,
+				GeneratorUtil.getPathByPackage(myBatisMapperGenVo.getMyBatisMapperPackage()));
+		setAndCreateTargetRoot(targetRoot);
 	}
 
 	/**

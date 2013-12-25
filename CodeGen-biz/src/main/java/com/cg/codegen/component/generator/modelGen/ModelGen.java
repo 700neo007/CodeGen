@@ -1,19 +1,13 @@
 package com.cg.codegen.component.generator.modelGen;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.util.Assert;
 
 import com.cg.codegen.component.generator.CodeGenerator;
 import com.cg.codegen.component.generator.vo.modelGen.ModelGenVo;
 import com.cg.codegen.component.typeHandler.MySqlTypeHandler;
-import com.cg.codegen.component.typeHandler.TypeHandler;
-import com.cg.codegen.model.vo.Column;
 import com.cg.codegen.model.vo.Table;
 
 /**
@@ -45,30 +39,6 @@ public abstract class ModelGen extends CodeGenerator {
 		}
 		
 		return modelMaps;
-	}
-	
-	/**
-	 * 获取import列表
-	 * @param sqlTypeJavaTypeMap
-	 * @return
-	 */
-	public List<String> getImportList(Table table, Map<String, String> sqlTypeJavaTypeMap) {
-		Set<String> pkgSet = new HashSet<String>();
-		List<Column> columnList = table.getColumnList();
-		String sqlType = null;
-		String javaType = null;
-		String packageName = null;
-		for (Column column : columnList) {
-			sqlType = column.getType();
-			javaType = sqlTypeJavaTypeMap.get(sqlType);
-			packageName = TypeHandler.JAVA_TYPE_PACKAGE_MAP.get(javaType);
-			if (StringUtils.isNotEmpty(packageName)) {
-				pkgSet.add(packageName);
-			}
-		}
-		List<String> pkgList = new ArrayList<String>();
-		pkgList.addAll(pkgSet);
-		return pkgList;
 	}
 	
 	/**
