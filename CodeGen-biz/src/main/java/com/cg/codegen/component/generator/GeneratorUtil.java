@@ -29,7 +29,7 @@ public class GeneratorUtil {
 	 * @param word
 	 * @return
 	 */
-	public static String convertFirtLetter2Upper(String word) {
+	public static String convertFirstLetter2Upper(String word) {
 		return (word.charAt(0) + "").toUpperCase() + word.substring(1);
 	}
 	
@@ -39,12 +39,14 @@ public class GeneratorUtil {
 	 */
 	public static String underline2CamelNaming(String source) {
 		String[] words = source.split("_");
+		words[0] = words[0].toLowerCase();
 		if (words.length == 1) {
-			return source;
+			return words[0];
 		}
+		
 		String word = null;
 		for (int i = 1, len = words.length; i < len; i++) {
-			word = convertFirtLetter2Upper(words[i]);
+			word = convertFirstLetter2Upper(words[i]);
 			words[i] = word;
 		}
 		return StringUtils.join(words);
@@ -59,7 +61,7 @@ public class GeneratorUtil {
 		String[] words = source.split("_");
 		String word = null;
 		for (int i = 0, len = words.length; i < len; i++) {
-			word = GeneratorUtil.convertFirtLetter2Upper(words[i]);
+			word = GeneratorUtil.convertFirstLetter2Upper(words[i]);
 			words[i] = word;
 		}
 		return StringUtils.join(words);
@@ -69,8 +71,9 @@ public class GeneratorUtil {
 //		System.out.println(underline2PascalNaming("last_update_time"));
 		
 //		System.out.println(underline2CamelNaming("last_update_time"));
+//		System.out.println(underline2CamelNaming("User"));
 		
-//		System.out.println(convertFirtLetter2Upper("commodity"));
+//		System.out.println(convertFirstLetter2Upper("commodity"));
 		
 //		System.out.println(getPathByPackage("com.cg.model"));
 		
